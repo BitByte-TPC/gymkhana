@@ -1,7 +1,13 @@
 name: flake8 Lint
 
-on: [push, pull_request]
-
+on:
+  push:
+    paths:
+      - api
+  pull_request:
+    paths:
+      - api
+  
 jobs:
   flake8-lint:
     runs-on: ubuntu-latest
