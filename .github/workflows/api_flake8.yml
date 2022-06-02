@@ -3,10 +3,10 @@ name: flake8 Lint
 on:
   push:
     paths:
-      - api
+      - api/**
   pull_request:
     paths:
-      - api
+      - api/**
   
 jobs:
   flake8-lint:
