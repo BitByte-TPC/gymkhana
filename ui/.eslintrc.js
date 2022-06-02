@@ -1,27 +1,28 @@
 module.exports = {
   extends: [
-    "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended",
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
+    './node_modules/gts',
   ],
-  plugins: ["@typescript-eslint"],
+  plugins: ['@typescript-eslint', 'prettier'],
   env: {
     browser: true,
     es6: true,
     jest: true,
   },
-  parser: "@typescript-eslint/parser",
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
     },
     ecmaVersion: 2018,
-    sourceType: "module",
+    sourceType: 'module',
   },
   rules: {
-    "prettier/prettier": [
-      "error",
+    'prettier/prettier': [
+      'error',
       {
-        endOfLine: "auto",
+        endOfLine: 'auto',
       },
     ],
   },
