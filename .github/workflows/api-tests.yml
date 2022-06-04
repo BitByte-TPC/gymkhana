@@ -38,4 +38,11 @@ jobs:
         pip install -r requirements.txt
     - name: Run Tests
       run: |
-        python manage.py test
+        coverage run manage.py test
+    - name: Build coverage file
+      run: |
+        coverage report > pytest-coverage.txt
+    - name: Pytest coverage comment
+      uses: MishaKav/pytest-coverage-comment@main
+      with:
+        pytest-coverage-path: api/pytest-coverage.txt 

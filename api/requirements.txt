@@ -1,6 +1,6 @@
 asgiref==3.5.2
 autopep8==1.6.0
-backports.zoneinfo==0.2.1
+coverage==6.4.1
 Django==4.0.5
 djangorestframework==3.13.1
 djangorestframework-types==0.7.0
