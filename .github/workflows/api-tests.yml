@@ -6,7 +6,8 @@ on:
     paths:
       - api/**
   pull_request:
-    branches: [ master ]
+    branches: 
+      - "*"
     paths:
       - api/**
 
@@ -17,6 +18,11 @@ defaults:
   run:
     shell: bash
     working-directory: api
+
+permissions: 
+  issues: write
+  pull-requests: write
+  contents: write
 
 jobs:
   build:
@@ -38,11 +44,8 @@ jobs:
         pip install -r requirements.txt
     - name: Run Tests
       run: |
-        coverage run manage.py test
-    - name: Build coverage file
-      run: |
-        coverage report > pytest-coverage.txt
+        pytest --cache-clear --cov=api | tee pytest-coverage.txt
     - name: Pytest coverage comment
       uses: MishaKav/pytest-coverage-comment@main
       with:
-        pytest-coverage-path: api/pytest-coverage.txt 
+        pytest-coverage-path: api/pytest-coverage.txt
