@@ -43,6 +43,7 @@ Make sure you are using `python 3.8` as we are officially working on it. If some
 - Install the dependencies: `$ pip install -r requirements.txt`
 - Make Migrations: `$ python manage.py makemigrations` (This commands generates migrations which would be used to update database schemas)
 - Migrate the DB: `$ python manage.py migrate`
+- Create a new file in the same directory named: `.env` and copy all the content from `.env.template`
 - Run server: `$ python manage.py runserver`
 - Run tests: `$ pytest`
 - Run tests with coverage information: `$ pytest --cov=api`
