@@ -42,6 +42,7 @@ jobs:
       run: |
         pytest --cache-clear --cov=api | tee pytest-coverage.txt
     - name: Pytest coverage comment
+      if: github.event_name == 'pull_request'
       uses: MishaKav/pytest-coverage-comment@main
       with:
         pytest-coverage-path: api/pytest-coverage.txt
