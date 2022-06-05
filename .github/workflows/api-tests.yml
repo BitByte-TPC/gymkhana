@@ -20,6 +20,8 @@ defaults:
 
 jobs:
   build:
+    permissions:
+      pull-requests: write
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
@@ -38,11 +40,8 @@ jobs:
         pip install -r requirements.txt
     - name: Run Tests
       run: |
-        coverage run manage.py test
-    - name: Build coverage file
-      run: |
-        coverage report > pytest-coverage.txt
+        pytest --cache-clear --cov=api | tee pytest-coverage.txt
     - name: Pytest coverage comment
       uses: MishaKav/pytest-coverage-comment@main
       with:
-        pytest-coverage-path: api/pytest-coverage.txt 
+        pytest-coverage-path: api/pytest-coverage.txt
