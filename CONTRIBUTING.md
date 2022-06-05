@@ -20,7 +20,8 @@ commit messages are standardized:
   -  **feat**: A new feature
   -  **fix**: A bug fix
   -  **perf**: A code change that improves performance
-  -  **refactor**: A code change that neither fixes a bug nor adds a feature
+  -  **chore**: A code change that neither fixes a bug nor adds a feature
+  -  **refactor**: A code change that improves code quality or makes it easier to maintain
   -  **style**: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
   -  **test**: Adding missing tests or correcting existing tests
 - Scope should be `ui` or `api` or `global`.
@@ -28,32 +29,10 @@ commit messages are standardized:
 - Example: `feat(ui): add dark-mode`
 
 
-## Local Setup
-
-- Fork and clone the repository.
-- Add remote upstream `git add upstream https://github.com/BitByte-TPC/gymkhana.git`
-
-### Backend setup
-
-Make sure you are using `python 3.8` as we are officially working on it. If something fails when using another python version, it's on you to solve that issue. Do not expect support from devs.
-
-- Change your working directory to `api`
-- Create a virtual environment: `$ python -m virtualenv .venv`
-- Activate the virtual environment: `$ source .venv/bin/activate` (On windows: `> ./.venv/Scripts/activate`)
-- Install the dependencies: `$ pip install -r requirements.txt`
-- Make Migrations: `$ python manage.py makemigrations` (This commands generates migrations which would be used to update database schemas)
-- Migrate the DB: `$ python manage.py migrate`
-- Run server: `$ python manage.py runserver`
-- Run tests: `$ pytest`
-- Run tests with coverage information: `$ pytest --cov=api`
-
-### Frontend setup
-
-- Run `cd ui`
-- Run `npm install` to install all dependencies.
-- Run `npm run dev` to start the server and visit [site](http://localhost:3000).
-
 ### Before making PR
 
 - Run `git fetch upstream` & `git rebase upstream/master` to fetch updated codebase into your local repository before creating any new branch.
-- Run `git checkout -b <your-branch-name>`
+- Run `git checkout -b <your-branch-name>`.
+- Work on the issue.
+- Make sure all tests are passing before making pull request.
+- Make sure the code is properly formatted and follows style guidelines.
