@@ -5,10 +5,12 @@ on:
     branches: [master]
     paths:
       - ui/**
+      - .github/workflows/ui-continuous_integration.yml
   pull_request:
     branches: [master]
     paths:
       - ui/**
+      - .github/workflows/ui-continuous_integration.yml
 
 defaults:
   run:
@@ -29,6 +31,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
+          cache-dependency-path: ui/package-lock.json
       - run: npm ci
       - run: npm run build
       - run: npm test
