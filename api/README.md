@@ -3,7 +3,7 @@
 - **Framework**: [Django](https://www.djangoproject.com/)
 - **Language**: [Python 3.8](https://www.python.org/)
 
-## Setup
+## Setup (local)
 
 Make sure you are using `python 3.8` as we are officially working on it. If something fails when using another python version, it's on you to solve that issue. Do not expect support from devs.
 
@@ -17,3 +17,13 @@ Make sure you are using `python 3.8` as we are officially working on it. If some
 - Run server: `$ python manage.py runserver`
 - Run tests: `$ pytest`
 - Run tests with coverage information: `$ pytest --cov=api`
+
+## Setup (docker)
+
+Make sure you have docker installed. Checkout [installation guide](https://docs.docker.com/get-docker/) to install docker.
+
+- Change your working directory to `api`
+- Create a new file in the same directory named `.env` and copy all the content from `.env.template`
+- Run `docker build . -t gymkhana-api` to build image.
+- Run `docker run --name gymkhana-api -p 8000:8000 gymkhana-api` to start the container.
+- Run `docker rm -f gymkhana-api` to stop and remove container.
