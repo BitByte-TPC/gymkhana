@@ -32,6 +32,7 @@ commit messages are standardized:
 
 - Run `git fetch upstream` & `git rebase upstream/master` to fetch updated codebase into your local repository before creating any new branch.
 - Run `git checkout -b <your-branch-name>`.
+- Request to get an issue assigned. (Comment on the issue.)
 - Work on the issue.
 - Make sure all tests are passing before making pull request.
 - Make sure the code is properly formatted and follows style guidelines.

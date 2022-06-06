@@ -5,10 +5,12 @@ on:
     branches: [ master ]
     paths:
       - api/**
+      - .github/workflows/api-build.yml
   pull_request:
     branches: [ master ]
     paths:
       - api/**
+      - .github/workflows/api-build.yml
 
 env:
   PROJECT_SECRET_KEY: random-key
@@ -41,11 +43,6 @@ jobs:
     - name: Run Tests
       run: |
         pytest --cache-clear --cov=api | tee pytest-coverage.txt
-    - name: Pytest coverage comment
-      if: github.event_name == 'pull_request'
-      uses: MishaKav/pytest-coverage-comment@main
-      with:
-        pytest-coverage-path: api/pytest-coverage.txt
 
   flake8-lint:
     runs-on: ubuntu-latest
