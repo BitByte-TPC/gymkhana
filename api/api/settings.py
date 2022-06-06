@@ -59,7 +59,6 @@ REST_FRAMEWORK = {
     'TEST_REQUEST_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer'
     ], 'DEFAULT_AUTHENTICATION_CLASSES': (
-       
         # 'oauth2_provider.ext.rest_framework.OAuth2Authentication',  # django-oauth-toolkit < 1.0.0
         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',  # django-oauth-toolkit >= 1.0.0
         'drf_social_oauth2.authentication.SocialAuthentication',
@@ -147,8 +146,3 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-# ACTIVATE_JWT: True
-# DRFSO2_PROPRIETARY_BACKEND_NAME: "auth"
-# DRFSO2_URL_NAMESPACE: 

@@ -8,7 +8,7 @@ urlpatterns = [
     
     path('ping/', ping_handler, name='ping'),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    re_path(r'^auth/', include('drf_social_oauth2.urls', namespace='drf'))
+    re_path(r'^auth/', include('drf_social_oauth2.urls', namespace='drf')), 
 ]
 
 if os.environ.get('ENV')=='dev':
