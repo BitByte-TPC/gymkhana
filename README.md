@@ -14,7 +14,7 @@ merchandise, etc. for all the gymkhana clubs in our institute.
 ## Local Setup
 
 - Fork and clone the repository.
-- Add remote upstream `git add upstream https://github.com/BitByte-TPC/gymkhana.git`
+- Add remote upstream `git remote add upstream https://github.com/BitByte-TPC/gymkhana.git`
 - [ui setup](https://github.com/BitByte-TPC/gymkhana/tree/master/ui)
 - [api setup](https://github.com/BitByte-TPC/gymkhana/tree/master/ui)
 
