@@ -25,7 +25,7 @@ commit messages are standardized:
   - **style**: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
   - **test**: Adding missing tests or correcting existing tests
 - Scope should be `ui` or `api` or `global`.
-- Description should be concise.
+- Description should be concise and in present imperative tense as mentioned [here](https://git.kernel.org/pub/scm/git/git.git/tree/Documentation/SubmittingPatches?h=v2.36.1#n181).
 - Example: `feat(ui): add dark-mode`
 
 ### Before making PR
