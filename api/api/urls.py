@@ -1,9 +1,10 @@
 import os
+
+from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
-from django.contrib import admin
-from .views import ping_handler
 
+from .views import ping_handler
 
 urlpatterns = [
     path('ping/', ping_handler, name='ping'),
