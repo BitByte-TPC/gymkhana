@@ -1,13 +1,14 @@
 import functools
 import os
-import pytest
 import sys
+from importlib import import_module, reload
+from unittest import mock
+
+import pytest
 from django.conf import settings
 from django.urls.base import clear_url_caches
-from importlib import import_module, reload
 from rest_framework import status
 from rest_framework.test import APITestCase
-from unittest import mock
 
 
 def reload_root_urls(wrapped):
