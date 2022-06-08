@@ -29,7 +29,6 @@ jobs:
       max-parallel: 4
       matrix:
         python-version: [3.8]
-
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
@@ -42,7 +41,7 @@ jobs:
         pip install -r requirements.txt
     - name: Run Tests
       run: |
-        pytest --cache-clear --cov=api | tee pytest-coverage.txt
+        pytest --cache-clear --cov=api --order-scope=class
 
   flake8-lint:
     runs-on: ubuntu-latest
