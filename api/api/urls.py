@@ -7,8 +7,9 @@ from django.urls.conf import include
 from .views import ping_handler
 
 urlpatterns = [
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('auth/', include('drf_social_oauth2.urls', namespace='drf')),
     path('ping/', ping_handler, name='ping'),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
 
 if os.environ.get('ENV') == 'dev':
