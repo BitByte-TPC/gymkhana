@@ -1,4 +1,73 @@
 .container {
   height: 100vh;
   width: 100vw;
+  background-color: #e2e2e2;
+  background-image: url('../../assets/images/background.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.card {
+  background-color: var(--primary-bg);
+  height: 60vh;
+  width: 22vw;
+  border-radius: 40px;
+  filter: drop-shadow(10px 10px 30px rgba(0, 0, 0, 0.25));
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 10vh;
+}
+
+.logo {
+  height: 15vh;
+}
+
+.heading {
+  margin-top: 4vh;
+  color: var(--primary-text);
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.btn {
+  padding: 1.5vh 3vh;
+  border: none;
+  margin-top: 5vh;
+  background-color: var(--secondary-bg);
+  border-radius: 15px;
+  color: var(--primary-bg);
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.btn > img {
+  margin-left: 1vh;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  color: var(--secondary-color);
+  background-color: var(--primary-color);
+  height: 10vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0 0 40px 40px;
+}
+
+@media only screen and (max-width: 700px) {
+  .container {
+    background-size: auto;
+  }
+  .card {
+    width: 80vw;
+  }
 }
