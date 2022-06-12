@@ -36,3 +36,4 @@ commit messages are standardized:
 - Work on the issue.
 - Make sure all tests are passing before making pull request.
 - Make sure the code is properly formatted and follows style guidelines.
+  - Run `flake8 path/to/code/to/check.py` or `flake8 path/to/code/` to check for lint errors in `api`.
