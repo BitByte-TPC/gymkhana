@@ -12,6 +12,7 @@
 
 - Run `cd ui`
 - Run `npm install` to install all dependencies.
+- Create a new file in the same directory named `.env` and copy all the content from `.env.template`
 - Run `npm run dev` to start the server and visit [site](http://localhost:3000).
 - Run `npm run test` to run tests.
 - Run `npm run lint` to check if the code is properly formatted.

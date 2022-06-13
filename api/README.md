@@ -24,6 +24,7 @@ Make sure you have docker installed. Checkout [installation guide](https://docs.
 
 - Change your working directory to `api`
 - Create a new file in the same directory named `.env` and copy all the content from `.env.template`
+- Run `docker image rm gymkhana-api` to remove any previous images of `api`.
 - Run `docker build . -t gymkhana-api` to build image.
 - Run `docker run --name gymkhana-api -p 8000:8000 gymkhana-api` to start the container.
 - Run `docker rm -f gymkhana-api` to stop and remove container.
