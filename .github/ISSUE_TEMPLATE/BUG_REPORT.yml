@@ -1,0 +1,53 @@
+name: Bug Report
+description: Create a report to help us improve
+labels: ['bug', 'unconfirmed']
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Issue summary
+      description: A brief summary of the issue
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      value: |
+        1. Step 1
+        2. Step 2
+        3. ...
+
+  - type: textarea
+    id: versions
+    attributes:
+      label: Versions
+      description: |
+        Execute:
+          - Python: python --version
+          - Django: pip show django | grep Version
+          - Node: node -v
+          - React: npm view react version
+          - Browser: Use [whatsmybrowser](https://www.whatsmybrowser.org/) to find out
+      value: |
+          - Python:
+          - Django:
+          - Node:
+          - React:
+          - Browser:
+      render: markdown
+
+
+      
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Terms
+      options:
+        - label: I have confirmed that this issue can be reproduced as described on a fresh gymkhana project.
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Any other relevant information?
