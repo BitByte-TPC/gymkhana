@@ -1,0 +1,41 @@
+name: Documentation Request
+description: Request for documentation to be added/altered
+labels: [documentation]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for filing a documentation request!
+
+        If you have an idea for a new documentation topic, noticed that
+        something is not properly documented, or feel that something is
+        incorrect with the current documentation, you re in the right place!
+
+  - type: input
+    id: subject
+    attributes:
+      label: What is this issue about?
+      description: |
+        Whether it's about:
+        - some typo or error you found in the doc,
+        - something that can be modified in the existing docs to make it better, or
+        - a request for a new documentation?
+
+  - type: input
+    id: newdoc
+    attributes:
+      label: Topic for new documentation
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Please describe the changes you suggest should be done in the existing docs, or what should be added as a new doc.
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Any other relevant information?
+      description: Any other relevant information you'd like to share with us?
+
+  
