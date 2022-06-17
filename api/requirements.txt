@@ -1,6 +1,7 @@
 Django==4.0.5
 asgiref==3.5.2
 autopep8==1.6.0
+django-cors-headers==3.13.0
 djangorestframework-types==0.7.0
 djangorestframework==3.13.1
 drf-social-oauth2==1.2.1
