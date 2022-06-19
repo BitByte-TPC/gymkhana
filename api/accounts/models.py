@@ -1,7 +1,7 @@
 import datetime
 from django.db import models
-from django.contrib.auth.models import AbstractUser
-from .managers import CustomUserManager
+from django.contrib.auth.models import AbstractUser, BaseUserManager, PermissionsMixin
+from django.contrib.auth import get_user_model
 
 # Create your models here.
 
@@ -31,10 +31,6 @@ class Constants:
         ('Staff', 'Staff'),
     )
 
-    DEPARTMENT = (
-        ('', ''),
-    )
-
     TITLE = (
         ('Prof', 'Prof'),
         ('Dr', 'Dr'),
@@ -43,28 +39,73 @@ class Constants:
         ('Ms', 'Ms'),
     )
 
-class User(AbstractUser):
+class UserManager(BaseUserManager):
+    def create_user(self, email, password=None):  # Add all required fields
+        if not email:
+            raise ValueError("User must have an email address")
+        if not password:
+            raise ValueError("User must have a password")
+        user = self.model(
+            email=self.normalize_email(email),
+        )
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_staffuser(self, email, password=None):
+        user = self.create_user(
+            email,
+            password=password,
+        )
+        user.is_staff = True
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, password=None):
+        user = self.create_user(
+            email,
+            password=password,
+        )
+        user.is_staff = True
+        user.is_superuser = True
+        user.save(using=self._db)
+        return user
+
+class User(AbstractUser, PermissionsMixin):
     username = None
     email = models.EmailField(unique=True)
-    contact_no = models.BigIntegerField()
-    user_type = models.CharField(max_length=50, choices=Constants.USER_TYPE)
-    # profile_img = models.ImageField(null=True)
-
+    gender = models.CharField(max_length=50, choices=Constants.SEX_CHOICES, default="M")
+    contact_no = models.BigIntegerField(verbose_name='Contact No', null=True, blank=True)
+    user_type = models.CharField(verbose_name='User Type' ,max_length=50, choices=Constants.USER_TYPE, default="Student")
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
+    
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
     # user manager
-    objects = CustomUserManager()
+    objects = UserManager()
 
     def __str__(self):
         return self.email
 
-class Student:
-    # student info
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    roll_no = models.CharField(max_length=20)
-    batch = models.IntegerField()
+    def save(self, *args, **kwargs):
+        """For cpanel."""
+        self.is_active = (self.is_active is True)
+        self.is_staff = (self.is_staff is True)
+        self.is_superuser = (self.is_superuser is True)
 
+        super(User, self).save(*args, **kwargs)
+
+class Student(models.Model):
+    # student info
+    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
+    roll_no = models.CharField(verbose_name='Roll No' ,max_length=20)
+    batch = models.IntegerField()   
+    department = models.CharField(max_length=100, choices=Constants.BRANCH)
+    hostel_address = models.CharField(verbose_name='Hostel Address' ,max_length=200)
+    
     # bio
     bio = models.TextField(max_length=1000, blank=True, null=True)
 
@@ -74,16 +115,23 @@ class Student:
     instagram = models.CharField(null=True, blank=True, max_length=1000)
     github = models.URLField(null=True, blank=True, default="www.github.com")
 
-class Faculty:
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.user.email
+
+class Faculty(models.Model):
+    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
     title = models.CharField(max_length=20, choices=Constants.TITLE)
     department = models.CharField(max_length=100, choices=Constants.BRANCH)
     designation = models.CharField(max_length=100, null=True)
 
-class Staff:
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.user.email
+
+class Staff(models.Model):
+    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
+    # TODO: choices in department yet to be added
     department = models.CharField(max_length=100)
     designation = models.CharField(max_length=100)
 
-
-
+    def __str__(self):
+        return self.user.email
