@@ -1,6 +1,8 @@
 import datetime
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.contrib.auth import get_user_model
+
 from .managers import CustomUserManager
 
 # Create your models here.
@@ -31,10 +33,6 @@ class Constants:
         ('Staff', 'Staff'),
     )
 
-    DEPARTMENT = (
-        ('', ''),
-    )
-
     TITLE = (
         ('Prof', 'Prof'),
         ('Dr', 'Dr'),
@@ -46,10 +44,10 @@ class Constants:
 class User(AbstractUser):
     username = None
     email = models.EmailField(unique=True)
-    contact_no = models.BigIntegerField()
-    user_type = models.CharField(max_length=50, choices=Constants.USER_TYPE)
-    # profile_img = models.ImageField(null=True)
-
+    gender = models.CharField(max_length=50, choices=Constants.SEX_CHOICES, default="M")
+    contact_no = models.BigIntegerField(null=True, blank=True)
+    user_type = models.CharField(max_length=50, choices=Constants.USER_TYPE, default="Student")
+    
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
@@ -61,9 +59,12 @@ class User(AbstractUser):
 
 class Student:
     # student info
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
     roll_no = models.CharField(max_length=20)
     batch = models.IntegerField()
+    department = models.CharField(max_length=100, choices=Constants.BRANCH)
+    hostel_address = models.CharField(max_length=200)
+    # profile_img = models.ImageField(null=True)
 
     # bio
     bio = models.TextField(max_length=1000, blank=True, null=True)
@@ -75,15 +76,18 @@ class Student:
     github = models.URLField(null=True, blank=True, default="www.github.com")
 
 class Faculty:
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
     title = models.CharField(max_length=20, choices=Constants.TITLE)
     department = models.CharField(max_length=100, choices=Constants.BRANCH)
     designation = models.CharField(max_length=100, null=True)
+    # profile_img = models.ImageField(null=True)
 
 class Staff:
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
+    # TODO: choices in department yet to be added
     department = models.CharField(max_length=100)
     designation = models.CharField(max_length=100)
+    # profile_img = models.ImageField(null=True)
 
 
 
