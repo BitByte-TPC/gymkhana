@@ -33,18 +33,18 @@ class StudentAdmin(admin.ModelAdmin):
     list_display = ('user', 'roll_no', 'batch', 'department', 'hostel_address')
     search_fields = ('user', 'roll_no', 'batch', 'department', 'hostel_address')
     list_filter = ('user', 'roll_no', 'batch', 'department', 'hostel_address')
-    ordering = ('user__date_joined',)
+    ordering = ('-user__date_joined',)
 
 @admin.register(Faculty)
 class FacultyAdmin(admin.ModelAdmin):
     list_display = ('user', 'title', 'department', 'designation')
     search_fields = ('user', 'title', 'department', 'designation')
     list_filter = ('user', 'title', 'department', 'designation')
-    ordering = ('user__date_joined',)
+    ordering = ('-user__date_joined',)
 
 @admin.register(Staff)
 class StaffAdmin(admin.ModelAdmin):
     list_display = ('user', 'department', 'designation')
     search_fields = ('user', 'department', 'designation')
     list_filter = ('user', 'department', 'designation')
-    ordering = ('user__date_joined',)
+    ordering = ('-user__date_joined',)

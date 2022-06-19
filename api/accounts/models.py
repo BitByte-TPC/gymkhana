@@ -123,6 +123,7 @@ class Faculty(models.Model):
     title = models.CharField(max_length=20, choices=Constants.TITLE)
     department = models.CharField(max_length=100, choices=Constants.BRANCH)
     designation = models.CharField(max_length=100, null=True)
+    # profile_img = models.ImageField(null=True)
 
     def __str__(self):
         return self.user.email
@@ -132,6 +133,7 @@ class Staff(models.Model):
     # TODO: choices in department yet to be added
     department = models.CharField(max_length=100)
     designation = models.CharField(max_length=100)
+    # profile_img = models.ImageField(null=True)
 
     def __str__(self):
         return self.user.email
