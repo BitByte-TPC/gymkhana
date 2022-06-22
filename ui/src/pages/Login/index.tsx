@@ -4,7 +4,6 @@ import {openGoogleOAuthPage} from '../../api/googleOauth';
 import {loginArrow, logo} from '../../assets';
 import {isTokenValid} from '../../utils/token';
 import styles from './styles.module.css';
-import 'react-toastify/dist/ReactToastify.css';
 import {useEffect} from 'react';
 
 export const Login: React.FC = () => {
@@ -25,7 +24,11 @@ export const Login: React.FC = () => {
       <div className={styles.card}>
         <img className={styles.logo} src={logo} alt="logo" />
         <div className={styles.heading}>Gymkhana</div>
-        <button className={styles.btn} onClick={openGoogleOAuthPage}>
+        <button
+          className={styles.btn}
+          data-testid="signin"
+          onClick={openGoogleOAuthPage}
+        >
           SIGN IN <img src={loginArrow} alt="arrow" />
         </button>
         <div className={styles.footer}>IIITDM Jabalpur</div>
