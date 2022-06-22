@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'social_django',
     'drf_social_oauth2',
     'corsheaders',
+
+    'api.accounts',
 ]
 
 MIDDLEWARE = [
@@ -123,6 +125,8 @@ AUTHENTICATION_BACKENDS = [
     'drf_social_oauth2.backends.DjangoOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 ]
+
+AUTH_USER_MODEL = 'api_accounts.User'
 
 # Google configuration
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('GOOGLE_OAUTH2_KEY')
