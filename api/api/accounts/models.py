@@ -81,8 +81,6 @@ class Student(models.Model):
     batch = models.IntegerField()
     department = models.CharField(max_length=100, choices=Constants.BRANCH)
     hostel_address = models.CharField(verbose_name='Hostel Address', max_length=200)
-
-    # bio
     bio = models.TextField(max_length=1000, blank=True, null=True)
 
     def __str__(self):
@@ -111,11 +109,11 @@ class Staff(models.Model):
 
 class StudentSocial(models.Model):
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
-    linkedin = models.URLField(null=True, blank=True, default=None)
-    facebook = models.URLField(null=True, blank=True, default=None)
-    instagram = models.CharField(null=True, blank=True, max_length=100, default=None)
-    github = models.URLField(null=True, blank=True, default=None)
-    twitter = models.URLField(null=True, blank=True, max_length=100, default=None)
+    linkedin = models.URLField(null=True, blank=True)
+    facebook = models.URLField(null=True, blank=True)
+    instagram = models.CharField(null=True, blank=True, max_length=100)
+    github = models.URLField(null=True, blank=True)
+    twitter = models.URLField(null=True, blank=True, max_length=100)
 
     def __str__(self):
         return self.user.email
