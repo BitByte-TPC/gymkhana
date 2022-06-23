@@ -1,9 +1,9 @@
 import datetime
 from django.db import models
-from django.contrib.auth.models import AbstractUser, BaseUserManager, PermissionsMixin
+from django.contrib.auth.models import AbstractUser, PermissionsMixin
 from django.contrib.auth import get_user_model
 
-# Create your models here.
+from .managers import CustomUserManager
 
 
 class Constants:
@@ -41,43 +41,10 @@ class Constants:
     )
 
 
-class UserManager(BaseUserManager):
-    def create_user(self, email, password=None):  # Add all required fields
-        if not email:
-            raise ValueError("User must have an email address")
-        if not password:
-            raise ValueError("User must have a password")
-        user = self.model(
-            email=self.normalize_email(email),
-        )
-        user.set_password(password)
-        user.save(using=self._db)
-        return user
-
-    def create_staffuser(self, email, password=None):
-        user = self.create_user(
-            email,
-            password=password,
-        )
-        user.is_staff = True
-        user.save(using=self._db)
-        return user
-
-    def create_superuser(self, email, password=None):
-        user = self.create_user(
-            email,
-            password=password,
-        )
-        user.is_staff = True
-        user.is_superuser = True
-        user.save(using=self._db)
-        return user
-
-
 class User(AbstractUser, PermissionsMixin):
     username = None
     email = models.EmailField(unique=True)
-    gender = models.CharField(max_length=50, choices=Constants.SEX_CHOICES, default="M")
+    gender = models.CharField(max_length=10, choices=Constants.SEX_CHOICES, default="M")
     contact_no = models.BigIntegerField(verbose_name='Contact No', null=True, blank=True)
     user_type = models.CharField(
         verbose_name='User Type',
@@ -93,7 +60,7 @@ class User(AbstractUser, PermissionsMixin):
     REQUIRED_FIELDS = []
 
     # user manager
-    objects = UserManager()
+    objects = CustomUserManager()
 
     def __str__(self):
         return self.email
@@ -118,12 +85,6 @@ class Student(models.Model):
     # bio
     bio = models.TextField(max_length=1000, blank=True, null=True)
 
-    # socials
-    linkedin = models.URLField(null=True, blank=True, default="www.linkedin.com")
-    facebook = models.URLField(null=True, blank=True, default="www.facebook.com")
-    instagram = models.CharField(null=True, blank=True, max_length=1000)
-    github = models.URLField(null=True, blank=True, default="www.github.com")
-
     def __str__(self):
         return self.user.email
 
@@ -133,7 +94,6 @@ class Faculty(models.Model):
     title = models.CharField(max_length=20, choices=Constants.TITLE)
     department = models.CharField(max_length=100, choices=Constants.BRANCH)
     designation = models.CharField(max_length=100, null=True)
-    # profile_img = models.ImageField(null=True)
 
     def __str__(self):
         return self.user.email
@@ -141,10 +101,21 @@ class Faculty(models.Model):
 
 class Staff(models.Model):
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
-    # TODO: choices in department yet to be added
+    # TODO(#83): add choices in department to which staff belongs to
     department = models.CharField(max_length=100)
     designation = models.CharField(max_length=100)
-    # profile_img = models.ImageField(null=True)
+
+    def __str__(self):
+        return self.user.email
+
+
+class StudentSocial(models.Model):
+    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
+    linkedin = models.URLField(null=True, blank=True, default=None)
+    facebook = models.URLField(null=True, blank=True, default=None)
+    instagram = models.CharField(null=True, blank=True, max_length=100, default=None)
+    github = models.URLField(null=True, blank=True, default=None)
+    twitter = models.URLField(null=True, blank=True, max_length=100, default=None)
 
     def __str__(self):
         return self.user.email

@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from .models import User, Student, Faculty, Staff
+
+from .models import User, Student, Faculty, Staff, StudentSocial
 
 
 @admin.register(User)
@@ -33,7 +34,7 @@ class UserAdmin(BaseUserAdmin):
         'is_staff',
         'is_superuser'
         )
-    ordering = ('email')
+    ordering = ('email',)
     fieldsets = (
         ('Credentials', {'fields': ('email', 'password')}),
         ('User Info', {'fields': ('first_name', 'last_name', 'gender', 'contact_no', 'user_type')}),
@@ -81,4 +82,12 @@ class StaffAdmin(admin.ModelAdmin):
     list_display = ('user', 'department', 'designation')
     search_fields = ('user', 'department', 'designation')
     list_filter = ('user', 'department', 'designation')
+    ordering = ('-user__date_joined',)
+
+
+@admin.register(StudentSocial)
+class StudentSocialAdmin(admin.ModelAdmin):
+    list_display = ('user', 'github', 'twitter', 'linkedin', 'instagram', 'facebook')
+    search_fields = ('user', 'github', 'twitter', 'linkedin', 'instagram', 'facebook')
+    list_filter = ('user', 'github', 'twitter', 'linkedin', 'instagram', 'facebook')
     ordering = ('-user__date_joined',)
