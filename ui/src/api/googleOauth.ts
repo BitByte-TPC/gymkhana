@@ -21,8 +21,9 @@ export const openGoogleOAuthPage = () => {
     redirect_uri: REDIRECT_URL,
     client_id: GOOGLE_CLIENT_ID,
   });
-  window.location.href =
-    'https://accounts.google.com/o/oauth2/v2/auth?' + queryParams.toString();
+  window.location.assign(
+    'https://accounts.google.com/o/oauth2/v2/auth?' + queryParams.toString()
+  );
 };
 
 /**
