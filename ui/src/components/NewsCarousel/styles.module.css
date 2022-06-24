@@ -1,0 +1,68 @@
+.cardContainer {
+  height: 45vh;
+  border-radius: 32px;
+  background-color: #e2e2e2;
+  background-image: url('../../assets/images/background.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+}
+.leftContainer {
+  width: 30%;
+  padding: 5vh 2vw;
+}
+.info {
+  background-color: white;
+  height: 100%;
+  border-radius: 32px;
+  padding: 4vh 2vh;
+  position: relative;
+}
+.heading {
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-align: left;
+}
+.subHeading {
+  font-size: 0.8rem;
+  font-style: italic;
+  text-align: left;
+}
+.description {
+  font-size: 0.8rem;
+  text-align: left;
+}
+.showMore {
+  border: none;
+  position: absolute;
+  bottom: 0;
+  font-weight: 700;
+  left: 0;
+  width: 100%;
+  color: var(--secondary-color);
+  background-color: var(--primary-color);
+  height: 7vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0 0 32px 32px;
+  cursor: pointer;
+}
+.showMore > img {
+  margin-left: 1vh;
+  width: 24px !important;
+}
+
+.rightImg {
+  border-radius: 0 32px 32px 0;
+}
+
+@media only screen and (max-width: 700px) {
+  .rightImg {
+    display: none !important;
+  }
+  .leftContainer {
+    width: 100%;
+    padding: 5vh 8vw;
+  }
+}
