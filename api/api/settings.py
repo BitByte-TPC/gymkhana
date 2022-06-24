@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'corsheaders',
 
     'api.auth',
+    'api.accounts',
 ]
 
 MIDDLEWARE = [
@@ -118,6 +119,8 @@ AUTH_PASSWORD_VALIDATORS = [
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
+
+AUTH_USER_MODEL = 'api_accounts.User'
 
 # Google configuration
 GOOGLE_OAUTH2_KEY = os.environ.get('GOOGLE_OAUTH2_KEY')
