@@ -45,18 +45,18 @@
   },
   "jest": {
     "testEnvironment": "jsdom",
+    "moduleNameMapper": {
+      ".css$": "<rootDir>/src/stub.css"
+    },
     "transform": {
-      "\\.(css|less)$": "jest-css-modules-transform",
+      "\\.css$": "jest-css-modules-transform",
       "\\.(ts|tsx)$": [
         "ts-jest"
       ]
     },
     "transformIgnorePatterns": [
       "/node_modules/",
-      "^.+\\.module\\.(css|sass|scss)$"
-    ],
-    "moduleNameMapper": {
-      "^.+\\.module\\.(css|sass|scss)$": "<rootDir>/src/stub.css"
-    }
+      "^.+\\.module\\.css$"
+    ]
   }
 }
