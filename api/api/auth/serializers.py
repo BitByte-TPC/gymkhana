@@ -5,7 +5,7 @@ from api.auth.models import Token
 
 
 class CreateTokenRequestSerializer(serializers.Serializer):
-    id_token = serializers.CharField()
+    authorization_code = serializers.CharField()
 
 
 class TokenUserSerializer(serializers.ModelSerializer):

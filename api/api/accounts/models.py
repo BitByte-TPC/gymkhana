@@ -1,7 +1,8 @@
 import datetime
-from django.db import models
-from django.contrib.auth.models import AbstractUser, PermissionsMixin
+
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import AbstractUser, PermissionsMixin
+from django.db import models
 
 from .managers import CustomUserManager
 
@@ -44,6 +45,8 @@ class Constants:
 class User(AbstractUser, PermissionsMixin):
     username = None
     email = models.EmailField(unique=True)
+    first_name = models.CharField(max_length=100, null=True, blank=True)
+    last_name = models.CharField(max_length=100, null=True, blank=True)
     gender = models.CharField(max_length=10, choices=Constants.SEX_CHOICES, default="M")
     contact_no = models.BigIntegerField(verbose_name='Contact No', null=True, blank=True)
     user_type = models.CharField(
@@ -51,7 +54,7 @@ class User(AbstractUser, PermissionsMixin):
         max_length=50,
         choices=Constants.USER_TYPE,
         default="Student"
-        )
+    )
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)

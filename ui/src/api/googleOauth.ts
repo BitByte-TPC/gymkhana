@@ -1,10 +1,4 @@
-import {
-  API_CLIENT_ID,
-  API_CLIENT_SECRET,
-  GOOGLE_CLIENT_ID,
-  REDIRECT_URL,
-  SERVER_URL,
-} from '../globals/constants';
+import {GOOGLE_CLIENT_ID, REDIRECT_URL, SERVER_URL} from '../globals/constants';
 import {setToken} from '../utils/token';
 
 export const openGoogleOAuthPage = () => {
@@ -16,7 +10,7 @@ export const openGoogleOAuthPage = () => {
   const queryParams = new URLSearchParams({
     scope: scopes.toString().replace(',', ' '),
     include_granted_scopes: 'true',
-    response_type: 'token',
+    response_type: 'code',
     state: 'state_parameter_passthrough_value',
     redirect_uri: REDIRECT_URL,
     client_id: GOOGLE_CLIENT_ID,
@@ -28,31 +22,28 @@ export const openGoogleOAuthPage = () => {
 
 /**
  * Exchange google's access token for our API's access token.
- * @param googleAccessToken - google's access token
+ * @param authorizationCode - Authorization code returned by google
  * @param redirectToHome - callback function to redirect to home
  */
 export const convertAccessToken = async (
-  googleAccessToken: string,
+  authorizationCode: string,
   redirectToHome: () => void,
   failRedirect: () => void
 ) => {
+  console.log(authorizationCode);
   try {
-    const res = await fetch(SERVER_URL + '/auth/convert-token', {
+    const res = await fetch(SERVER_URL + '/auth/token/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        grant_type: 'convert_token',
-        client_id: API_CLIENT_ID,
-        client_secret: API_CLIENT_SECRET,
-        backend: 'google-oauth2',
-        token: googleAccessToken,
+        authorization_code: authorizationCode,
       }),
     });
     const data = await res.json();
-    if (data.access_token) {
-      setToken(data.access_token);
+    if (data.token) {
+      setToken(data.token);
       redirectToHome();
     } else {
       throw new Error('API error');
