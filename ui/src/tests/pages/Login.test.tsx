@@ -68,7 +68,7 @@ describe('<Login />', () => {
       scope:
         'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile',
       include_granted_scopes: 'true',
-      response_type: 'token',
+      response_type: 'code',
       state: 'state_parameter_passthrough_value',
       redirect_uri: 'redirect-uri',
       client_id: 'google-client-id',

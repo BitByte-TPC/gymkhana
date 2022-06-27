@@ -8,15 +8,13 @@ export const LoginRedirect: React.FC = () => {
 
   useEffect(() => {
     const errQuery = new URLSearchParams({error: 'Please try again later!'});
-    const accessToken = new URLSearchParams(window.location.hash).get(
-      'access_token'
-    );
+    const code = new URLSearchParams(window.location.search).get('code');
 
-    if (!accessToken) {
+    if (!code) {
       return navigate('/');
     } else {
       convertAccessToken(
-        accessToken,
+        code,
         () => navigate('/'),
         () => navigate('/login?' + errQuery.toString())
       );
