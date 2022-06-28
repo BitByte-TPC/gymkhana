@@ -30,7 +30,6 @@ export const convertAccessToken = async (
   redirectToHome: () => void,
   failRedirect: () => void
 ) => {
-  console.log(authorizationCode);
   try {
     const res = await fetch(SERVER_URL + '/auth/token/', {
       method: 'POST',

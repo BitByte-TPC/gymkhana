@@ -19,6 +19,7 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
+    'no-console': 2,
     'prettier/prettier': [
       'error',
       {
