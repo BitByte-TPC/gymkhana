@@ -1,3 +1,23 @@
 .container {
   height: 10vh;
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 1vh;
+}
+
+.profileInfoContainer {
+  height: fit-content;
+  padding: 1vh;
+  display: flex;
+  align-items: center;
+}
+
+.profileInfoContainer img {
+  width: 32px;
+  border-radius: 50%;
+}
+
+.profileName {
+  color: var(--primary-text);
+  margin-left: 1vh;
 }
