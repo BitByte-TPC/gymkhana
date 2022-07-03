@@ -14,11 +14,14 @@ WORKDIR $API_HOME
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1  
 
-# copy api directory to docker's work directory. 
-COPY . $API_HOME  
+# copy requirements file
+COPY requirements.txt $API_HOME
 
 # install dependencies  
 RUN pip install --upgrade pip && pip install -r requirements.txt
+
+# copy api directory to docker's work directory. 
+COPY . $API_HOME  
 
 # make migrations
 RUN python manage.py makemigrations && python manage.py migrate
