@@ -1,0 +1,42 @@
+[
+  {
+    "model": "api_accounts.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$A7RQxRY9cuuAcfhglNLO8q$/su1+34L3LZFMQ5rX48z0clfM7EnI5eYsFIxATUEzvY=",
+      "last_login": "2022-07-04T12:22:11Z",
+      "date_joined": "2022-07-04T12:21:25Z",
+      "email": "admin@iiitdmj.ac.in",
+      "first_name": "Admin",
+      "last_name": "Student",
+      "gender": "M",
+      "contact_no": 9999999999,
+      "user_type": "Student",
+      "is_active": true,
+      "is_staff": true,
+      "is_superuser": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "api_accounts.user",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$NifmqVMwlWjfonNrSy4xrv$5GBffHv6g2o/tcYV8cmuHiLavMTaSNxwTdbZ2Q4NoXg=",
+      "last_login": null,
+      "date_joined": "2022-07-04T12:26:49Z",
+      "email": "adminstaff@iiitdmj.ac.in",
+      "first_name": "Admin",
+      "last_name": "staff",
+      "gender": "M",
+      "contact_no": 9999999999,
+      "user_type": "Staff",
+      "is_active": true,
+      "is_staff": true,
+      "is_superuser": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  }
+]
