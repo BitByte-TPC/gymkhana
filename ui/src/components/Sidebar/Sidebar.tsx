@@ -1,6 +1,4 @@
-import {BorderLeft, SocialDistanceRounded} from '@mui/icons-material';
 import React from 'react';
-import {render} from 'react-dom';
 import {
   logo,
   googleChromeLogo,
@@ -15,15 +13,7 @@ import {
 
 import styles from './styles.module.css';
 
-// interface SidebarRow {
-//   name: string;
-//   icon: React.FC<{active: boolean}>;
-//   isActive: boolean;
-// }
-
-export const Sidebar: React.FC<{
-  /* rows: SidebarRow[] */
-}> = (/* {rows} */) => {
+export const Sidebar: React.FC<{}> = () => {
   return (
     <div className={styles.container}>
       <div className={styles.container_row_heading}>
