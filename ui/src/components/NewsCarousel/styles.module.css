@@ -6,6 +6,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
+  margin: 0 4vw;
 }
 .leftContainer {
   width: 30%;
