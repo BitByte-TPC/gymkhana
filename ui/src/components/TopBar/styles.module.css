@@ -10,6 +10,7 @@
   padding: 1vh;
   display: flex;
   align-items: center;
+  margin-right: 5vh;
 }
 
 .profileInfoContainer img {

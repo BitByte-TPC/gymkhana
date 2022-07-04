@@ -1,3 +1,4 @@
+import {ClubsCarousel} from '../../components/ClubsCarousel';
 import {NewsCarousel} from '../../components/NewsCarousel';
 import {TopBar} from '../../components/TopBar';
 import styles from './styles.module.css';
@@ -9,6 +10,7 @@ export const Home: React.FC = () => {
       <div className={styles.mainContent}>
         <TopBar />
         <NewsCarousel />
+        <ClubsCarousel />
       </div>
     </div>
   );
