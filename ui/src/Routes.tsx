@@ -20,7 +20,7 @@ export const Router: React.FC = () => {
         />
         <Route path="/login" element={<Login />} />
         <Route path="/login/redirect" element={<LoginRedirect />} />
-        <Route path="/sidebar" element={<Sidebar />} />
+        <Route path="/homepage" element={<Sidebar />} />
       </Routes>
     </>
   );

@@ -1,13 +1,14 @@
 .container {
   display: flex;
   flex-direction: column;
+  height: 100%;
   background-color: var(--primary-bg);
 }
 
 .container_row_heading {
   display: flex;
-  border-left: 5px solid white;
-  margin-left: 44vw;
+  border-left: 5px solid var(--primary-bg);
+  margin-left: 3.1vw;
 }
 
 .container_row_heading > * {
@@ -20,7 +21,7 @@
   padding: 5px;
   display: flex;
   justify-content: center;
-  border-left: 5px solid white;
+  border-left: 5px solid var(--primary-bg);
   align-items: center;
 }
 
@@ -38,7 +39,7 @@
 
 .container_row:hover {
   border-left: 5px solid var(--primary-color);
-  background-color: rgb(236, 235, 235);
+  background-color: rgb(235, 235, 235);
   cursor: pointer;
 }
 
@@ -52,14 +53,14 @@
 }
 
 .text {
-  margin-top: 4vh;
+  margin-top: 3.7vh;
   color: var(--primary-text);
-  font-size: 1rem;
+  font-size: 1.25rem;
   font-weight: 600;
 }
 
 .container_text_row {
-  margin-left: 45vw;
+  margin-left: 3.7vw;
   margin-top: 2.5vh;
   color: var(--secondary-text);
   font-size: 0.8rem;
@@ -68,13 +69,12 @@
 
 .icondesign {
   flex: 1;
-  margin-top: -1.5vh;
+  margin-top: -2.3vh;
   height: 70%;
-  /* fill: none; */
 }
 
 .icontext {
-  margin-top: -3vh;
+  margin-top: -3.8vh;
   flex: 2;
   margin-left: 1.5vw;
   color: var(--secondary-text);
