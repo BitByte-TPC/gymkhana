@@ -6,7 +6,7 @@ import styles from './styles.module.css';
 export const Home: React.FC = () => {
   return (
     <div className={styles.container}>
-      <div className={styles.dummyNav}>
+      <div className={styles.NavContainer}>
         <Sidebar />
       </div>
       <div className={styles.mainContent}>
