@@ -1,10 +1,9 @@
 from typing import Any, Mapping
 
 import google_auth_oauthlib
+from django.conf import settings
 from google.auth.transport import requests
 from google.oauth2 import id_token
-
-from api import settings
 
 
 class GoogleClient:
