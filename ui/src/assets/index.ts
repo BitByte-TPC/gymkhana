@@ -4,34 +4,34 @@ export const dummyNewsImg = new URL('./images/dummy_news.jpg', import.meta.url)
   .href;
 export const loginArrow = new URL('./images/login-arrow.svg', import.meta.url)
   .href;
-export const googleChromeLogo = new URL(
-  './images/googleChromeLogo.svg',
+export const googleChromeIcon = new URL(
+  './images/googleChromeIcon.svg',
   import.meta.url
 ).href;
-export const wallClockLogo = new URL(
-  './images/wallClockLogo.svg',
+export const wallClockIcon = new URL(
+  './images/wallClockIcon.svg',
   import.meta.url
 ).href;
-export const calenderLogo = new URL(
-  './images/calenderLogo.svg',
-  import.meta.url
-).href;
-
-export const desktopTower = new URL(
-  './images/desktopTower.svg',
+export const calenderIcon = new URL(
+  './images/calenderIcon.svg',
   import.meta.url
 ).href;
 
-export const theatreLogo = new URL('./images/theatreLogo.svg', import.meta.url)
+export const desktopTowerIcon = new URL(
+  './images/desktopTowerIcon.svg',
+  import.meta.url
+).href;
+
+export const theatreIcon = new URL('./images/theatreIcon.svg', import.meta.url)
   .href;
 
-export const sportsLogo = new URL('./images/sportsLogo.svg', import.meta.url)
+export const sportsIcon = new URL('./images/sportsIcon.svg', import.meta.url)
   .href;
 
-export const settingsLogo = new URL(
-  './images/settingsLogo.svg',
+export const settingsIcon = new URL(
+  './images/settingsIcon.svg',
   import.meta.url
 ).href;
 
-export const signoutLogo = new URL('./images/signoutLogo.svg', import.meta.url)
+export const signoutIcon = new URL('./images/signoutIcon.svg', import.meta.url)
   .href;
