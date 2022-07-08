@@ -62,7 +62,13 @@ REST_FRAMEWORK = {
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
     'TEST_REQUEST_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer'
-    ]
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'api.auth.backend.TokenHeaderAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
 }
 
 ROOT_URLCONF = 'api.urls'
@@ -102,10 +108,6 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
-]
-
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
 ]
 
 AUTH_USER_MODEL = 'api_accounts.User'
