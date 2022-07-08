@@ -12,7 +12,7 @@ Make sure you are using `python 3.8` as we are officially working on it. If some
 - Create a virtual environment: `$ python -m virtualenv .venv`
 - Activate the virtual environment: `$ source .venv/bin/activate` (On windows: `> ./.venv/Scripts/activate`)
 - Install the dependencies: `$ pip install -r requirements.txt`
-- Make Migrations: `$ python manage.py makemigrations` (This commands generates migrations which would be used to update database schemas)
+- Make Migrations: `$ chmod +x scripts/makemigrations.sh && sh ./scripts/makemigrations.sh` (This commands generates migrations which would be used to update database schemas)
 - Migrate the DB: `$ python manage.py migrate`
 - Run server: `$ python manage.py runserver`
 - Run tests: `$ pytest`
