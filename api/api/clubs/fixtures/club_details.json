@@ -1,0 +1,35 @@
+[
+  {
+    "model": "api_clubs.Club",
+    "pk": 1,
+    "fields": {
+      "name": "Bitbyte - The Programming Club",
+      "category": "S&T",
+      "description": "We, including students from freshman year to final year, aim to create a thriving coding environment for developers like you to ensure community learning.",
+      "email": "theprogclub@iiitdmj.ac.in <theprogclub@iiitdmj.ac.in>;",
+      "logo": "https://www.iiitdmj.ac.in/webix.iiitdmj.ac.in/tpclogo.png"
+    }
+  },
+  {
+    "model": "api_clubs.Club",
+    "pk": 2,
+    "fields": {
+      "name": "Samvaad",
+      "category": "Cultural",
+      "description": "Our Literature Club consists of getting together on a regular basis in order to share ideas and enjoy activities based on our common interest. Samvaad promotes and expects a non-judgmental and supportive attitude from participants",
+      "email": "samvaad@iiitdmj.ac.in",
+      "logo": "https://static.wixstatic.com/media/f9842c_b7e3349dc57d4487a08356bb7d4a2739~mv2.png/v1/fill/w_62,h_120,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/samvaad%20logo2.png"
+    }
+  },
+  {
+    "model": "api_clubs.Club",
+    "pk": 3,
+    "fields": {
+      "name": "Badminton Club",
+      "category": "Sports",
+      "description": "IIITDMJ Badminton Club has been the most successful club of IIITDM Jabalpur since its inception in 2010. Being the official Club of the Institute, it primarily focuses on the development of an individual as a sportsperson. A perfect place where you can convert your stress into something great. The club has so far won many competitions major highlight of includes 4 Inter IIIT titles for the consecutive years . Every year the club has witnessed constant improvement in its journey be it be in the rise of its members or achievements . Club regularly orgainises training sessions and events for its members for the complete development of an individual as an sportsperson. ",
+      "email": "badmintonclub@iiitdmj.ac.in",
+      "logo": "https://i.pinimg.com/originals/f2/ff/5c/f2ff5cc76745c904d3254d7084672bb5.jpg"
+    }
+  }
+]

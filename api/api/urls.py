@@ -10,6 +10,7 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('auth/', include('api.auth.urls')),
     path('ping/', ping_handler, name='ping'),
+    path('clubs/', include('api.clubs.urls'))
 ]
 
 if os.environ.get('ENV') == 'dev':
