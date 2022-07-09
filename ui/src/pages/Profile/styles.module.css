@@ -1,0 +1,22 @@
+.container {
+  min-height: 100vh;
+  width: 100vw;
+  background-color: #f4f5f7;
+  display: flex;
+}
+.NavContainer {
+  width: 18%;
+  background-color: pink;
+}
+.mainContent {
+  width: 82%;
+}
+
+@media only screen and (max-width: 700px) {
+  .NavContainer {
+    display: none;
+  }
+  .mainContent {
+    width: 100%;
+  }
+}
