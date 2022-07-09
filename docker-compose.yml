@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./api:/home/app/api
+    ports:
+      - 8000:8000
+    command: python manage.py runserver 0.0.0.0:8000
+  ui:
+    build:
+      context: ./ui
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./ui:/home/app/ui
+      - /home/app/ui/node_modules
+    ports:
+      - 3000:3000
+    command: npm run dev -- --host
