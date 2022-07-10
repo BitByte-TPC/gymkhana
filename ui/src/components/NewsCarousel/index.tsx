@@ -1,7 +1,7 @@
 import {Carousel} from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import {dummyNewsImg, loginArrow} from '../../assets';
-import styles from './styles.module.css';
+import styles from './styles.module.scss';
 
 const data = [
   {

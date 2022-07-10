@@ -12,7 +12,7 @@ import {
 } from '../../assets';
 import {SidebarRow} from './SidebarRow';
 
-import styles from './styles.module.css';
+import styles from './styles.module.scss';
 
 export const Sidebar: React.FC<{}> = () => {
   return (
