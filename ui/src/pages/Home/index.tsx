@@ -3,7 +3,7 @@ import {EventsCarousel} from '../../components/EventsCarousel';
 import {NewsCarousel} from '../../components/NewsCarousel';
 import {Sidebar} from '../../components/Sidebar/Sidebar';
 import {TopBar} from '../../components/TopBar';
-import styles from './styles.module.css';
+import styles from './styles.module.scss';
 
 export const Home: React.FC = () => {
   return (

@@ -1,7 +1,7 @@
 import {ProfileCard} from '../../components/ProfileCard';
 import {Sidebar} from '../../components/Sidebar/Sidebar';
 import {TopBar} from '../../components/TopBar';
-import styles from './styles.module.css';
+import styles from './styles.module.scss';
 
 export const Profile: React.FC = () => {
   return (

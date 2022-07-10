@@ -3,7 +3,7 @@ import {toast, ToastContainer} from 'react-toastify';
 import {openGoogleOAuthPage} from '../../api/googleOauth';
 import {loginArrow, logo} from '../../assets';
 import {isTokenValid} from '../../utils/token';
-import styles from './styles.module.css';
+import styles from './styles.module.scss';
 import {useEffect} from 'react';
 
 export const Login: React.FC = () => {
