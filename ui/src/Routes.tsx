@@ -1,5 +1,6 @@
 import {Route, Routes} from 'react-router-dom';
 import {ProtectedRoute} from './ProtectedRoute';
+import React from 'react';
 import {Home} from './pages/Home';
 import {Login} from './pages/Login';
 import {LoginRedirect} from './pages/LoginRedirect';

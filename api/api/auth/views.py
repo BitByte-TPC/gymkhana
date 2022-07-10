@@ -5,6 +5,7 @@ from typing import Dict, Mapping
 from django.contrib.auth import get_user_model
 from google.auth.exceptions import GoogleAuthError
 from rest_framework import status
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -17,6 +18,7 @@ from .serializers import (CreateTokenRequestSerializer,
 
 class TokenView(APIView):
     """View to create and revoke the tokens."""
+    permission_classes = (AllowAny,)
 
     def post(self, request):
         serializer = CreateTokenRequestSerializer(data=request.data)

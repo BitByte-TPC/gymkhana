@@ -24,7 +24,7 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 COPY . $API_HOME  
 
 # make migrations
-RUN python manage.py makemigrations && python manage.py migrate
+RUN chmod +x scripts/makemigrations.sh && ./scripts/makemigrations.sh && python manage.py migrate
 
 # port where the Django app runs  
 EXPOSE 8000  
