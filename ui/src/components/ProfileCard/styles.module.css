@@ -1,0 +1,59 @@
+.cardContainer {
+  min-height: 75vh;
+  border-radius: 32px;
+  background-color: var(--secondary-color);
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  margin: 0 4vw;
+}
+
+.leftContainer {
+  width: 25%;
+  display: flex;
+  padding-top: 5vh;
+  justify-content: center;
+  background: var(--off-white);
+}
+.leftContainer img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.form {
+  padding: 5vh 8vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  position: relative;
+}
+
+.paddingForBtn {
+  height: 10vh;
+}
+
+.submitBtn {
+  position: absolute;
+  bottom: 5vh;
+  right: 10vh;
+}
+
+@media only screen and (max-width: 700px) {
+  .cardContainer {
+    flex-direction: column;
+  }
+  .rightImg {
+    display: none !important;
+  }
+  .leftContainer {
+    width: 100%;
+    padding: 5vh 2vh;
+  }
+  .form {
+    padding-top: 5vh;
+  }
+}
