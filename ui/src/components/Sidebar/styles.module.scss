@@ -1,14 +1,18 @@
 .container {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  width: 18vw;
+  height: 100vh;
   background-color: var(--primary-bg);
+  transition: transform 0.3s ease-in-out;
 }
-
+.openSidebar {
+  transform: translateX(0) !important;
+}
 .container_row_heading {
   display: flex;
+  margin-left: 3.4vw;
   border-left: 5px solid var(--primary-bg);
-  margin-left: 3.1vw;
 }
 
 .container_row_heading > * {
@@ -20,14 +24,15 @@
   height: 6vh;
   padding: 5px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   border-left: 5px solid var(--primary-bg);
   align-items: center;
 }
 
 .row_content {
-  width: 10vw;
+  width: 50%;
   height: 6vh;
+  margin-left: 3.4vw;
   margin-top: 4vh;
   display: flex;
   align-items: center;
@@ -60,11 +65,12 @@
 }
 
 .container_text_row {
-  margin-left: 3.7vw;
   margin-top: 2.5vh;
+  margin-left: 3.4vw;
   color: var(--secondary-text);
   font-size: 0.8rem;
   font-weight: 400;
+  margin-bottom: 0.5rem;
 }
 
 .icondesign {
@@ -76,8 +82,17 @@
 .icontext {
   margin-top: -3.8vh;
   flex: 2;
-  margin-left: 1.5vw;
   color: var(--secondary-text);
   font-size: 0.8rem;
   font-weight: 600;
+}
+@import '../../index';
+
+@media only screen and (max-width: $sm) {
+  .container {
+    width: 70vw;
+    position: absolute;
+    z-index: 1;
+    transform: translateX(-50rem);
+  }
 }

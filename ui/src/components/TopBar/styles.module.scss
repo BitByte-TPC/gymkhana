@@ -1,8 +1,22 @@
+.logoContainer {
+  padding: 1rem;
+  width: 60px;
+  height: 60px;
+  background-color: white;
+  border-radius: 50%;
+  margin-left: 0.5rem;
+}
+.logo {
+  width: 30px;
+  height: 30px;
+}
 .container {
   height: 10vh;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
   padding-top: 1vh;
+  margin-bottom: 1rem;
 }
 
 .profileInfoContainer {
@@ -21,4 +35,14 @@
 .profileName {
   color: var(--primary-text);
   margin-left: 1vh;
+}
+@import '../../index';
+
+@media only screen and (min-width: $sm) {
+  .logoContainer {
+    display: none;
+  }
+  .container {
+    justify-content: flex-end;
+  }
 }

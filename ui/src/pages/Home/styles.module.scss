@@ -6,17 +6,23 @@
 }
 .NavContainer {
   width: 18%;
-  background-color: pink;
+  transition: transform 0.3s ease-in-out;
 }
 .mainContent {
   width: 82%;
 }
+.mainContentBlur::after {
+  content: '\A';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
 
 @import '../../index';
 @media only screen and (max-width: $sm) {
-  .dummyNav {
-    display: none;
-  }
   .mainContent {
     width: 100%;
   }
