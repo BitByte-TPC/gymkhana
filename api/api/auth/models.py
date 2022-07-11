@@ -1,4 +1,5 @@
 import uuid
+from datetime import datetime, timezone
 
 from django.conf import settings
 from django.db import models
@@ -14,5 +15,12 @@ class Token(models.Model):
     def find_or_create(user):
         token = Token.objects.filter(user=user).first()
         if not token:
+            return Token.objects.create(token=uuid.uuid4().hex, user=user)
+        return token
+
+    def if_expired_get_new(token, user):
+        TOKEN_LIFE_IN_DAYS = (datetime.now(timezone.utc) - token.created_at).days
+        if(TOKEN_LIFE_IN_DAYS >= 1):
+            token.delete()
             return Token.objects.create(token=uuid.uuid4().hex, user=user)
         return token
