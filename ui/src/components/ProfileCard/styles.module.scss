@@ -1,3 +1,5 @@
+@import '../../index';
+
 .cardContainer {
   min-height: 75vh;
   border-radius: 32px;
@@ -42,7 +44,6 @@
   right: 10vh;
 }
 
-@import '../../index';
 @media only screen and (max-width: $sm) {
   .cardContainer {
     flex-direction: column;

@@ -1,3 +1,5 @@
+@import '../../index';
+
 .container {
   display: flex;
   flex-direction: column;
@@ -6,9 +8,7 @@
   background-color: var(--primary-bg);
   transition: transform 0.3s ease-in-out;
 }
-.openSidebar {
-  transform: translateX(0) !important;
-}
+
 .container_row_heading {
   display: flex;
   margin-left: 3.4vw;
@@ -86,13 +86,9 @@
   font-size: 0.8rem;
   font-weight: 600;
 }
-@import '../../index';
 
 @media only screen and (max-width: $sm) {
   .container {
-    width: 70vw;
-    position: absolute;
-    z-index: 1;
-    transform: translateX(-50rem);
+    width: 100%;
   }
 }

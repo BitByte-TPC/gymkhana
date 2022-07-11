@@ -1,15 +1,20 @@
+@import '../../index';
+
 .container {
   min-height: 100vh;
   width: 100vw;
   background-color: #f4f5f7;
   display: flex;
 }
-.NavContainer {
-  width: 18%;
-  transition: transform 0.3s ease-in-out;
-}
 .mainContent {
   width: 82%;
+}
+.sidebarContainer {
+  width: 100%;
+  transition: transform 0.3s ease-in-out;
+}
+.openSidebar {
+  transform: translateX(0) !important;
 }
 .mainContentBlur::after {
   content: '\A';
@@ -20,10 +25,14 @@
   left: 0;
   background: rgba(0, 0, 0, 0.6);
 }
-
-@import '../../index';
 @media only screen and (max-width: $sm) {
   .mainContent {
     width: 100%;
+  }
+  .sidebarContainer {
+    width: 70vw;
+    position: absolute;
+    z-index: 1;
+    transform: translateX(-50rem);
   }
 }
