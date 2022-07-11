@@ -1,16 +1,12 @@
 import styles from './styles.module.scss';
 import {logo} from '../../assets';
 interface TopBarProps {
-  isSidebarOpenOnMobile: boolean;
-  setIsSidebarOpenOnMobile: (isSidebarOpenOnMobile: boolean) => void;
+  setSidebarVisibility: (isSidebarOpenOnMobile: boolean) => void;
 }
 
-export const TopBar: React.FC<TopBarProps> = ({
-  isSidebarOpenOnMobile,
-  setIsSidebarOpenOnMobile,
-}) => {
+export const TopBar: React.FC<TopBarProps> = ({setSidebarVisibility}) => {
   const menuClickHandler = () => {
-    setIsSidebarOpenOnMobile(!isSidebarOpenOnMobile);
+    setSidebarVisibility(true);
   };
   return (
     <div className={styles.container}>

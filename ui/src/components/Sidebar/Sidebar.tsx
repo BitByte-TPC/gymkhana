@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React from 'react';
 import {
   logo,
   googleChromeIcon,
@@ -14,44 +14,14 @@ import {SidebarRow} from './SidebarRow';
 import {useNavigate} from 'react-router-dom';
 import styles from './styles.module.scss';
 
-interface SidebarProps {
-  isSidebarOpenOnMobile: boolean;
-  setIsSidebarOpenOnMobile: (isSidebarOpenOnMobile: boolean) => void;
-}
-
-export const Sidebar: React.FC<SidebarProps> = ({
-  isSidebarOpenOnMobile,
-  setIsSidebarOpenOnMobile,
-}) => {
-  const sidebarRef = useRef<HTMLDivElement>(null);
-
+export const Sidebar: React.FC = () => {
   const navigate = useNavigate();
   const logoutHandler = () => {
     window.sessionStorage.removeItem('token');
-    navigate('/login', {replace: true});
+    navigate('/login');
   };
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        sidebarRef.current &&
-        !sidebarRef.current.contains(event.target as Node)
-      ) {
-        setIsSidebarOpenOnMobile(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  });
   return (
-    <div
-      ref={sidebarRef}
-      className={`${styles.container} ${
-        isSidebarOpenOnMobile ? styles.openSidebar : ''
-      }`}
-    >
+    <div className={styles.container}>
       <div className={styles.menuContainer}>
         <div className={styles.container_row_heading}>
           <div>
