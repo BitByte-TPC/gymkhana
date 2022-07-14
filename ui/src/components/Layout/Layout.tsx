@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import {useState, useRef, useEffect} from 'react';
 import {Sidebar} from '../../components/Sidebar/Sidebar';
 import {TopBar} from '../../components/TopBar';
@@ -29,16 +30,16 @@ export const Layout: React.FC<LayoutProps> = props => {
     <div className={styles.container}>
       <div
         ref={sidebarRef}
-        className={`${styles.sidebarContainer} ${
-          isSidebarOpenOnMobile ? styles.openSidebar : ''
-        }`}
+        className={classNames(styles.sidebarContainer, {
+          [styles.openSidebar]: isSidebarOpenOnMobile,
+        })}
       >
         <Sidebar />
       </div>
       <div
-        className={`${styles.mainContent} ${
-          isSidebarOpenOnMobile ? styles.mainContentBlur : ''
-        }`}
+        className={classNames(styles.mainContent, {
+          [styles.mainContentBlur]: isSidebarOpenOnMobile,
+        })}
       >
         <TopBar setSidebarVisibility={setIsSidebarOpenOnMobile} />
         <div>{props.children}</div>
