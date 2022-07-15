@@ -1,6 +1,9 @@
-from accounts.models import User
-from clubs.models import Club
+from django.contrib.auth import get_user_model
 from django.db import models
+
+from api.clubs.models import Club
+
+User = get_user_model()
 
 
 class Roles(models.Model):
