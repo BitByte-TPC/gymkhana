@@ -21,7 +21,8 @@ merchandise, etc. for all the gymkhana clubs in our institute.
 ## Design Docs
 
 - [1000 feet view](https://github.com/BitByte-TPC/gymkhana/wiki/1000-feet-View)
-- [Authentication](https://github.com/BitByte-TPC/gymkhana/wiki/Authentication-Design-Doc) (In Review)
+- [Authentication](https://github.com/BitByte-TPC/gymkhana/wiki/Authentication-Design-Doc)
+- [Clubs & Events](https://github.com/BitByte-TPC/gymkhana/wiki/Clubs-and-events-Design-Doc) (In Review)
 
 ## Want to contribute?
 
