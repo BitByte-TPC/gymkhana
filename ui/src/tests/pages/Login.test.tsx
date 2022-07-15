@@ -4,6 +4,7 @@ import {act} from 'react-dom/test-utils';
 import {MemoryRouter, Router} from 'react-router-dom';
 
 import {Login} from '../../pages/Login';
+global.fetch = jest.fn();
 
 let container: Element | null = null;
 let root: Root | null = null;

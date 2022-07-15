@@ -3,6 +3,7 @@ import {render} from '@testing-library/react';
 import {BrowserRouter} from 'react-router-dom';
 import {Router} from './Routes';
 
+global.fetch = jest.fn();
 const localStorageMock = (() => {
   let store: {[key: string]: string} = {};
   return {
