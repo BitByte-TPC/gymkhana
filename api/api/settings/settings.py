@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'api.auth',
     'api.accounts',
     'api.clubs',
+    'api.roles',
 ]
 
 MIDDLEWARE = [
