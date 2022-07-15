@@ -111,6 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTH_USER_MODEL = 'api_accounts.User'
+AUTH_ALLOWED_TOKEN_LIFE_IN_DAYS = 1
 
 # Google configuration
 GOOGLE_OAUTH2_KEY = os.environ.get('GOOGLE_OAUTH2_KEY')

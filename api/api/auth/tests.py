@@ -1,4 +1,5 @@
 import uuid
+from datetime import datetime, timezone
 from unittest import mock
 from uuid import UUID
 
@@ -137,6 +138,44 @@ class TokenViewTest(APITestCase):
         self.assertEqual(users_count, 1,
                          f'Got {users_count} users in db, expected 1')
         self.assertEqual(response.data['token'], existing_token.token)
+
+    @pytest.mark.django_db
+    @mock.patch('time.sleep')
+    @mock.patch('google_auth_oauthlib.flow.Flow.fetch_token')
+    @mock.patch('google.oauth2.id_token.verify_oauth2_token')
+    def test_expiredTokenExists_returnsNewTokenWithUserInfo(
+            self, mock_verify_token, mock_fetch_token, mock_sleep):
+        # given
+        mock_verify_token.return_value = {
+            'email': 'test@user.com',
+            'given_name': 'Test',
+            'family_name': 'User',
+        }
+        mock_fetch_token.return_value = {
+            'id_token': 'some-id-token'
+        }
+
+        existing_user = User.objects.create(
+            email='test@user.com', first_name='Test', last_name='User')
+        existing_token = Token.objects.create(token=uuid.uuid4().hex, user=existing_user)
+        existing_token.created_at = datetime(2022, 7, 9, 10, 10, 10, 10, timezone.utc)
+        existing_token.save()
+
+        # when
+        response = self.client.post(
+            '/auth/token/', {'authorization_code': 'some-code'},
+            format='json')
+
+        # then
+        tokens_count = Token.objects.count()
+        users_count = User.objects.count()
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(tokens_count, 1,
+                         f'Got {tokens_count} tokens in db, expected 1')
+        self.assertEqual(users_count, 1,
+                         f'Got {users_count} users in db, expected 1')
+        self.assertNotEqual(response.data['token'], existing_token.token)
 
     @pytest.mark.django_db
     @mock.patch('google_auth_oauthlib.flow.Flow.fetch_token')
