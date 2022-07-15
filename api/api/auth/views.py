@@ -51,7 +51,7 @@ class TokenView(APIView):
 
             user = self._find_or_create_user(user_info)
             access_token = Token.find_or_create(user)
-
+            access_token = Token.if_expired_get_new(access_token, user)
             return Response(data=CreateTokenResponseSerializer(access_token).data)
 
     def _extract_userdata_from_id_token(self, validated_id_info: Mapping[str, str]) -> Dict:
