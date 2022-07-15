@@ -38,6 +38,6 @@ class GoogleClient:
         return flow.fetch_token(code=code)
 
 
-google_client = GoogleClient(settings.GOOGLE_OAUTH2_KEY, settings.GOOGLE_OAUTH2_SECRET)
+google_client = GoogleClient(settings.GOOGLE_OAUTH2_CLIENT_ID, settings.GOOGLE_OAUTH2_CLIENT_SECRET)
 
 __all__ = ['google_client']
