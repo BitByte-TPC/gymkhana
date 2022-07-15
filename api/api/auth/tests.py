@@ -138,6 +138,7 @@ class TokenViewTest(APITestCase):
                          f'Got {users_count} users in db, expected 1')
         self.assertEqual(response.data['token'], existing_token.token)
 
+    @pytest.mark.django_db
     @mock.patch('google_auth_oauthlib.flow.Flow.fetch_token')
     def test_createToken_invalidAuthorizationCodeInRequest_throwsForbiddenError(
             self, mock_fetch_token):
@@ -159,6 +160,7 @@ class TokenViewTest(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
+    @pytest.mark.django_db
     @mock.patch('time.sleep')
     @mock.patch('google_auth_oauthlib.flow.Flow.fetch_token')
     @mock.patch('google.oauth2.id_token.verify_oauth2_token')
@@ -188,6 +190,7 @@ class TokenViewTest(APITestCase):
             response.data['message'],
             'Token could not be validated. Please try again.')
 
+    @pytest.mark.django_db
     @mock.patch('time.sleep')
     @mock.patch('google_auth_oauthlib.flow.Flow.fetch_token')
     @mock.patch('google.oauth2.id_token.verify_oauth2_token')
