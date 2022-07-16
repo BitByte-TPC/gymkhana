@@ -1,8 +1,6 @@
 import functools
-import os
 import sys
 from importlib import import_module, reload
-from unittest import mock
 
 import pytest
 from django.conf import settings
@@ -29,7 +27,7 @@ def reload_root_urls(wrapped):
 class AdminEndpointTest(APITestCase):
 
     @pytest.mark.order(1)
-    @mock.patch.dict(os.environ, {'ENV': 'dev'})
+    @pytest.mark.urls('api.dev_urls')
     @reload_root_urls
     def testAdminEndpoint_inDevEnv_returns200Ok(self):
         """Tests the /admin/ endpoint to return status code 200 when env is dev"""
@@ -38,6 +36,7 @@ class AdminEndpointTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     @pytest.mark.order(2)
+    @pytest.mark.urls('api.urls')
     @reload_root_urls
     def testAdminEndpoint_notInDevEnv_returns404(self):
         """Tests the /admin/ endpoint to return status code 404 when env is not dev"""

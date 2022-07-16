@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'api.auth',
     'api.accounts',
     'api.clubs',
+    'api.events',
     'api.roles',
 ]
 
@@ -64,9 +65,9 @@ REST_FRAMEWORK = {
     'TEST_REQUEST_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer'
     ],
-    'DEFAULT_AUTHENTICATION_CLASSES': (
+    'DEFAULT_AUTHENTICATION_CLASSES': [
         'api.auth.backend.TokenHeaderAuthentication',
-    ),
+    ],
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     )
