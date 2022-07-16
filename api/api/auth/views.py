@@ -29,7 +29,7 @@ class TokenView(APIView):
             except Exception:
                 logging.exception('Error while exchanging auth code for token')
                 return Response(
-                    status=403,
+                    status=status.HTTP_403_FORBIDDEN,
                     data={'message': 'Invalid authorization code. Try logging in again.'})
             try:
                 id_info = google_client.verify_id_token(auth_response.get('id_token'))
@@ -68,3 +68,13 @@ class TokenView(APIView):
                 first_name=user_info.get('first_name'),
                 last_name=user_info.get('last_name'))
         return user
+
+
+class DeleteTokenView(APIView):
+    """View to delete the tokens."""
+
+    def delete(self, request):
+        token = Token.objects.filter(user=request.user).first()
+        if token:
+            token.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
