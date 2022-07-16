@@ -58,7 +58,7 @@ class User(AbstractUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
-    picture_url = models.URLField(max_length=500)
+    picture_url = models.URLField(max_length=500, blank=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
