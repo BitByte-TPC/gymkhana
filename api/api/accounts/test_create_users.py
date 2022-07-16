@@ -176,3 +176,27 @@ def testCreateUserView_testStaffModel_validDataProvided_userCreatedSuccessfully(
                              'staff': OrderedDict([('department', 'ECE'),
                                                    ('designation', 'z')])
                              }
+
+
+@pytest.mark.django_db
+def testCreateUserView_usertypeAndProvidedDataMismatch_throwsBadRequest(
+      admin_user,
+      client):
+
+    # given
+    client.force_authenticate(admin_user)
+
+    test_user_email = 'test@staff.com'
+
+    # when
+    response = client.post(user_creation_endpoint,
+                           {'email': test_user_email,
+                            'user_type': 'Faculty',
+                            'staff': {
+                                'department': 'ECE',
+                                'designation': 'z'
+                                }
+                            })
+
+    # then
+    assert response.status_code == status.HTTP_400_BAD_REQUEST
