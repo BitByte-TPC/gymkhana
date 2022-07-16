@@ -321,3 +321,31 @@ class TokenHeaderAuthenticationTest(APITestCase):
                         "Should return active user if token is valid")
         self.assertEqual(authenticated_user.email, created_user.email)
         self.assertEqual(token, created_token.token)
+
+
+class DeleteTokenViewTest(APITestCase):
+    """Test DeleteTokenView to delete token"""
+
+    @pytest.mark.django_db
+    def test_deleteToken_tokenDoesNotExists_returnHTTPNoContent(self):
+        # given
+        user = User.objects.create(
+            email='test@user.com', first_name='Test', last_name='User')
+        self.client.force_authenticate(user)
+        # when
+        response = self.client.delete(
+            '/auth/token:revoke/')
+        # then
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+    @pytest.mark.django_db
+    def test_deleteToken_tokenExist_returnHTTPNoContent(self):
+        # given
+        user = User.objects.create(
+            email='test@user.com', first_name='Test', last_name='User')
+        Token.objects.create(token=uuid.uuid4().hex, user=user)
+        self.client.force_authenticate(user)
+        # when
+        response = self.client.delete('/auth/token:revoke/')
+        # then
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
