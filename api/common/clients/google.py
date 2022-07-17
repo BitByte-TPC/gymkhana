@@ -1,9 +1,9 @@
 from typing import Any, Mapping
 
-from google_auth_oauthlib.flow import Flow
 from django.conf import settings
 from google.auth.transport import requests
 from google.oauth2 import id_token
+from google_auth_oauthlib.flow import Flow
 
 
 class GoogleClient:
@@ -20,7 +20,9 @@ class GoogleClient:
             `GoogleAuthError` if issuer is invalid.
         """
 
-        return id_token.verify_oauth2_token(google_id_token, requests.Request(), clock_skew_in_seconds=5)
+        return id_token.verify_oauth2_token(
+            google_id_token, requests.Request(),
+            clock_skew_in_seconds=5)
 
     def exchange_auth_code_for_token(self, code: str):
         client_config = {
