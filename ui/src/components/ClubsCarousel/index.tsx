@@ -3,6 +3,7 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import {useAuthFetch} from '../../api/useAuthFetch';
 import {useEffect} from 'react';
+import {useLogout} from '../../hooks/useLogout';
 
 interface ClubsCarouselData {
   name: string;
@@ -12,9 +13,10 @@ interface ClubsCarouselData {
 
 export const ClubsCarousel: React.FC = () => {
   const {data, error} = useAuthFetch('/clubs');
+  const logout = useLogout();
   useEffect(() => {
     if (error) {
-      console.log(error);
+      logout();
     }
   }, [error]);
 
