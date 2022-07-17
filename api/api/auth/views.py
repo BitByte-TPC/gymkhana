@@ -1,5 +1,4 @@
 import logging
-import time
 from typing import Dict, Mapping
 
 from django.contrib.auth import get_user_model
@@ -28,16 +27,14 @@ class TokenView(APIView):
             try:
                 auth_response = google_client.exchange_auth_code_for_token(code)
             except Exception:
-                logging.error('Error while exchanging auth code for token')
+                logging.exception('Error while exchanging auth code for token')
                 return Response(
                     status=403,
                     data={'message': 'Invalid authorization code. Try logging in again.'})
             try:
-                # If the verification is done too soon, an error is thrown.
-                # Following 2 seconds pause is used to avoid that error.
-                time.sleep(2)
                 id_info = google_client.verify_id_token(auth_response.get('id_token'))
             except ValueError:
+                logging.exception('Error while verifying the token')
                 return Response(
                     status=status.HTTP_403_FORBIDDEN,
                     data={'message': 'Token could not be validated. Please try again.'})

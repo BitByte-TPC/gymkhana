@@ -20,11 +20,10 @@ class TokenViewTest(APITestCase):
     """Tests TokenView for creating and revoking access tokens."""
 
     @pytest.mark.django_db
-    @mock.patch('time.sleep')
     @mock.patch('google_auth_oauthlib.flow.Flow.fetch_token')
     @mock.patch('google.oauth2.id_token.verify_oauth2_token')
     def test_createToken_userDoesNotExist_createsNewUser_returnsTokenAndUserInfo(
-            self, mock_verify_token, mock_fetch_token, mock_sleep):
+            self, mock_verify_token, mock_fetch_token):
         # given
         mock_verify_token.return_value = {
             'email': 'test@user.com',
@@ -57,11 +56,10 @@ class TokenViewTest(APITestCase):
         self.assertIsInstance(UUID(token.token), UUID)
 
     @pytest.mark.django_db
-    @mock.patch('time.sleep')
     @mock.patch('google_auth_oauthlib.flow.Flow.fetch_token')
     @mock.patch('google.oauth2.id_token.verify_oauth2_token')
     def test_createToken_userExists_tokenDoesNotExist_createsTokenAndReturnsWithUserInfo(
-            self, mock_verify_token, mock_fetch_token, mock_sleep):
+            self, mock_verify_token, mock_fetch_token):
         # given
         mock_verify_token.return_value = {
             'email': 'test@user.com',
@@ -97,11 +95,10 @@ class TokenViewTest(APITestCase):
         self.assertIsInstance(UUID(token.token), UUID)
 
     @pytest.mark.django_db
-    @mock.patch('time.sleep')
     @mock.patch('google_auth_oauthlib.flow.Flow.fetch_token')
     @mock.patch('google.oauth2.id_token.verify_oauth2_token')
     def test_createToken_tokenExists_returnsExistingTokenWithUserInfo(
-            self, mock_verify_token, mock_fetch_token, mock_sleep):
+            self, mock_verify_token, mock_fetch_token):
         # given
         mock_verify_token.return_value = {
             'email': 'test@user.com',
@@ -140,11 +137,10 @@ class TokenViewTest(APITestCase):
         self.assertEqual(response.data['token'], existing_token.token)
 
     @pytest.mark.django_db
-    @mock.patch('time.sleep')
     @mock.patch('google_auth_oauthlib.flow.Flow.fetch_token')
     @mock.patch('google.oauth2.id_token.verify_oauth2_token')
     def test_expiredTokenExists_returnsNewTokenWithUserInfo(
-            self, mock_verify_token, mock_fetch_token, mock_sleep):
+            self, mock_verify_token, mock_fetch_token):
         # given
         mock_verify_token.return_value = {
             'email': 'test@user.com',
@@ -200,11 +196,10 @@ class TokenViewTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     @pytest.mark.django_db
-    @mock.patch('time.sleep')
     @mock.patch('google_auth_oauthlib.flow.Flow.fetch_token')
     @mock.patch('google.oauth2.id_token.verify_oauth2_token')
     def test_createToken_invalidIdToken_throwsForbiddenError(
-            self, mock_verify_token, mock_fetch_token, mock_sleep):
+            self, mock_verify_token, mock_fetch_token):
         # given
         mock_verify_token.side_effect = ValueError()
         mock_fetch_token.return_value = {
@@ -230,11 +225,10 @@ class TokenViewTest(APITestCase):
             'Token could not be validated. Please try again.')
 
     @pytest.mark.django_db
-    @mock.patch('time.sleep')
     @mock.patch('google_auth_oauthlib.flow.Flow.fetch_token')
     @mock.patch('google.oauth2.id_token.verify_oauth2_token')
     def test_createToken_invalidTokenIssuer_throwsBadRequestError(
-            self, mock_verify_token, mock_fetch_token, mock_sleep):
+            self, mock_verify_token, mock_fetch_token):
         # given
         mock_verify_token.side_effect = GoogleAuthError()
         mock_fetch_token.return_value = {
