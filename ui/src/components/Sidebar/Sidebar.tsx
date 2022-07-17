@@ -10,16 +10,12 @@ import {
   settingsIcon,
   signoutIcon,
 } from '../../assets';
+import {useLogout} from '../../hooks/useLogout';
 import {SidebarRow} from './SidebarRow';
-import {useNavigate} from 'react-router-dom';
 import styles from './styles.module.scss';
 
 export const Sidebar: React.FC = () => {
-  const navigate = useNavigate();
-  const logoutHandler = () => {
-    window.sessionStorage.removeItem('token');
-    navigate('/login');
-  };
+  const logout = useLogout();
   return (
     <div className={styles.container}>
       <div className={styles.menuContainer}>
@@ -50,7 +46,7 @@ export const Sidebar: React.FC = () => {
         </div>
 
         <SidebarRow icon={settingsIcon} text="Settings" />
-        <SidebarRow icon={signoutIcon} text="Log out" onClick={logoutHandler} />
+        <SidebarRow icon={signoutIcon} text="Log out" onClick={logout} />
       </div>
     </div>
   );
