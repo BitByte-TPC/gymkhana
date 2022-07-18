@@ -179,19 +179,21 @@ def testCreateUserView_testStaffModel_validDataProvided_userCreatedSuccessfully(
 
 
 @pytest.mark.django_db
-def testCreateUserView_usertypeAndProvidedDataMismatch_throwsBadRequest(
+def testCreateUserView_usertypeAndProvidedDataMismatch_mismatchIsHandledAndUserCreatedSuccesfully(
       admin_user,
       client):
 
     # given
     client.force_authenticate(admin_user)
 
-    test_user_email = 'test@staff.com'
-
     # when
     response = client.post(user_creation_endpoint,
-                           {'email': test_user_email,
+                           {'email': 'test@staff.com',
                             'user_type': 'Faculty',
+                            'faculty': {
+                                'title': 'Prof',
+                                'department': 'ME'
+                            },
                             'staff': {
                                 'department': 'ECE',
                                 'designation': 'z'
@@ -199,4 +201,22 @@ def testCreateUserView_usertypeAndProvidedDataMismatch_throwsBadRequest(
                             })
 
     # then
-    assert response.status_code == status.HTTP_400_BAD_REQUEST
+    created_user = User.objects.get(email='test@staff.com')
+
+    assert response.status_code == status.HTTP_201_CREATED
+    assert response.data == {'email': 'test@staff.com',
+                             'first_name': None,
+                             'last_name': None,
+                             'gender': 'M',
+                             'contact_no': None,
+                             'user_type': 'Faculty',
+                             'picture_url': '',
+                             'student': None,
+                             'faculty': OrderedDict([('title', 'Prof'),
+                                                     ('department', 'ME'),
+                                                     ('designation', None)]),
+                             'staff': None
+                             }
+
+    assert created_user.email == 'test@staff.com'
+    assert created_user.faculty.title == 'Prof'

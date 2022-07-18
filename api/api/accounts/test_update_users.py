@@ -25,7 +25,7 @@ def client():
 
 
 @pytest.mark.django_db
-def testUpdateUserView_nonOwnerRequest_throwsForbidden(client, test_user):
+def testUpdateUserView_nonOwnerAndNonAdminRequest_throwsForbidden(client, test_user):
 
     # given
     client.force_authenticate(test_user)
@@ -319,7 +319,7 @@ def testUpdateUserView_staffUserInRequest_changeRequest_updatesSuccessful(client
                          ('email', 'changed@mail.com'),
                          ('user_type', 'Staff'),
                          ])
-def testUpdateUserView_baseUserInRequest_ownerChangeRequestOfNonEditableField_throwsError(
+def testUpdateUserView_baseUserInRequest_ownerChangeRequestOfNonEditableField_nonEditableChangesIgnored(    # noqa: E501
       client,
       test_user,
       non_editable_field,
@@ -330,9 +330,12 @@ def testUpdateUserView_baseUserInRequest_ownerChangeRequestOfNonEditableField_th
 
     # when
     response = client.put(f'/users/{test_user.id}/', {non_editable_field: value})
+    updated_test_user = User.objects.get(id=test_user.id)
 
     # then
-    assert response.status_code == status.HTTP_400_BAD_REQUEST
+    assert response.status_code == status.HTTP_200_OK
+    assert response.data[non_editable_field] == getattr(test_user, non_editable_field)
+    assert getattr(test_user, non_editable_field) == getattr(updated_test_user, non_editable_field)
 
 
 @pytest.mark.django_db
@@ -367,7 +370,7 @@ def testUpdateUserView_baseUserInRequest_adminChangeRequestOfNonEditableField_ch
                          ('batch', 2024),
                          ('department', 'ME')
                          ])
-def testUpdateUserView_studentUserInRequest_ownerChangeRequestOfNonEditableField_throwError(
+def testUpdateUserView_studentUserInRequest_ownerChangeRequestOfNonEditableField_nonEditableChangeIgnored(    # noqa: E501
       client,
       test_user,
       non_editable_field,
@@ -386,9 +389,14 @@ def testUpdateUserView_studentUserInRequest_ownerChangeRequestOfNonEditableField
 
     # when
     response = client.put(f'/users/{test_user.id}/', {non_editable_field: value})
+    updated_test_user = User.objects.get(id=test_user.id)
 
     # then
     assert response.status_code == status.HTTP_200_OK
+    assert response.data['student'][non_editable_field] == getattr(test_user.student,
+                                                                   non_editable_field)
+    assert getattr(test_user.student, non_editable_field) == getattr(updated_test_user.student,
+                                                                     non_editable_field)
 
 
 @pytest.mark.django_db
@@ -429,7 +437,7 @@ def testUpdateUserView_studentUserInRequest_adminChangeRequestOfNonEditableField
 
 
 @pytest.mark.django_db
-def testUpdateUserView_studentUserInRequest_staffDataProvided_throwsBadRequest(
+def testUpdateUserView_studentUserInRequest_staffDataProvided_ignoresStaffDataChanges(
       client,
       test_user):
 
@@ -445,6 +453,7 @@ def testUpdateUserView_studentUserInRequest_staffDataProvided_throwsBadRequest(
     client.force_authenticate(test_user)
 
     # when
+    updated_test_user = User.objects.get(id=test_user.id)
     response = client.put(f'/users/{test_user.id}/', {'staff': {
                                                           'department': 'CSE',
                                                           'designation': 'smthng'
@@ -452,4 +461,6 @@ def testUpdateUserView_studentUserInRequest_staffDataProvided_throwsBadRequest(
                                                       })
 
     # then
-    assert response.status_code == status.HTTP_400_BAD_REQUEST
+    assert response.status_code == status.HTTP_200_OK
+    assert response.data['student']['roll_no'] == '21abc000'
+    assert updated_test_user.student.roll_no == '21abc000'

@@ -42,28 +42,19 @@ class UserSerializer(serializers.ModelSerializer):
         staff_data = validated_data.pop('staff', None)
 
         # check for email
-        if not validated_data.get('email', None):
+        if not validated_data.get('email'):
             raise serializers.ValidationError('Email field is required.')
 
         user = User.objects.create(**validated_data)
         user_type = user.user_type
 
-        # create user type if user_type and data match else throw error
-        if student_data:
-            if user_type == 'Student':
-                Student.objects.create(user=user, **student_data)
-            else:
-                raise serializers.ValidationError('Provided data doesn\'t match with user_type')
-        elif faculty_data:
-            if user_type == 'Faculty':
-                Faculty.objects.create(user=user, **faculty_data)
-            else:
-                raise serializers.ValidationError('Provided data doesn\'t match with user_type')
-        elif staff_data:
-            if user_type == 'Staff':
-                Staff.objects.create(user=user, **staff_data)
-            else:
-                raise serializers.ValidationError('Provided data doesn\'t match with user_type')
+        # Match data provided to user_type
+        if user_type == 'Student' and student_data:
+            Student.objects.create(user=user, **student_data)
+        elif user_type == 'Faculty' and faculty_data:
+            Faculty.objects.create(user=user, **faculty_data)
+        elif user_type == 'Staff' and staff_data:
+            Staff.objects.create(user=user, **staff_data)
         return user
 
     def update(self, instance, validated_data):
@@ -92,29 +83,22 @@ class UserSerializer(serializers.ModelSerializer):
 
         user_type = instance.user_type
 
-    # create or update user_type data based on instances
-    # throw exception if data doesn't match with user type
+        # create or update user type only if user_type and data match else ignore it
         if user_type == 'Student':
             if student and student_data:
                 self._update_student(student, student_data)
             elif student_data:
                 Student.objects.create(user=instance, **student_data)
-            elif staff_data or faculty_data:
-                raise serializers.ValidationError('Provided data doesn\'t match with user type')
         elif user_type == 'Faculty':
             if faculty and faculty_data:
                 self._update_faculty(faculty, faculty_data)
             elif faculty_data:
                 Faculty.objects.create(user=instance, **faculty_data)
-            elif staff_data or student_data:
-                raise serializers.ValidationError('Provided data doesn\'t match with user type')
         elif user_type == 'Staff':
             if staff and staff_data:
                 self._update_staff(staff, staff_data)
             elif staff_data:
                 Staff.objects.create(user=instance, **staff_data)
-            elif student_data or faculty_data:
-                raise serializers.ValidationError('Provided data doesn\'t match with user type')
 
         return instance
 
@@ -124,11 +108,10 @@ class UserSerializer(serializers.ModelSerializer):
 
         admin_only_editable_fields = ['email', 'user_type']
 
-        updatable_fields = self._validate_permission_and_get_updatable_fields(
-            instance,
-            validated_data,
-            updatable_fields,
-            admin_only_editable_fields)
+        request_user = self.context['request'].user
+
+        if request_user.is_staff:
+            updatable_fields += admin_only_editable_fields
 
         self._update_instance(instance, validated_data, updatable_fields)
 
@@ -136,11 +119,10 @@ class UserSerializer(serializers.ModelSerializer):
         updatable_fields = ['hostel_address', 'bio']
         admin_only_editable_fields = ['roll_no', 'batch', 'department']
 
-        updatable_fields = self._validate_permission_and_get_updatable_fields(
-            instance,
-            validated_data,
-            updatable_fields,
-            admin_only_editable_fields)
+        request_user = self.context['request'].user
+
+        if request_user.is_staff:
+            updatable_fields += admin_only_editable_fields
 
         self._update_instance(instance, validated_data, updatable_fields)
 
@@ -162,23 +144,3 @@ class UserSerializer(serializers.ModelSerializer):
             setattr(instance, field, field_new_value)
 
         instance.save()
-
-    def _validate_permission_and_get_updatable_fields(self,
-                                                      instance,
-                                                      validated_data,
-                                                      updatable_fields,
-                                                      admin_only_editable_fields
-                                                      ):
-        request_user = self.context['request'].user
-
-        if not request_user.is_staff:
-            for field in admin_only_editable_fields:
-                field_stored_value = getattr(instance, field)
-                field_new_value = validated_data.get(field, None)
-
-                if field_new_value and field_stored_value != field_new_value:
-                    raise serializers.ValidationError(f'{field} field is not editable')
-        else:
-            updatable_fields += admin_only_editable_fields
-
-        return updatable_fields
