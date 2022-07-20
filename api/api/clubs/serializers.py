@@ -7,7 +7,4 @@ class ClubSerializer(serializers.ModelSerializer):
     class Meta:
         model = Club
         fields = ['id', 'name', 'category', 'logo', 'description', 'email']
-        extra_kwargs = {'id': {'read_only': True},
-                        'description': {'write_only': True},
-                        'email': {'write_only': True}
-                        }
+        extra_kwargs = {'id': {'read_only': True}}
