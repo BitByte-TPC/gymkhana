@@ -27,3 +27,28 @@ $sm: 700px;
   --off-white: #f6f7fe;
   --input-bg: #bcd5eb36;
 }
+
+.dropdown__control {
+  border: none !important;
+  background-color: var(--primary-color) !important;
+  width: fit-content !important;
+  padding: 0 1vh !important;
+  border-radius: 15px !important;
+  color: var(--secondary-color) !important;
+  font-weight: 600 !important;
+  margin-bottom: 2vh !important;
+  margin-left: 3vw !important;
+}
+
+.dropdown__single-value {
+  color: var(--secondary-color) !important;
+}
+.dropdown__indicator-separator {
+  background: transparent !important;
+}
+
+.dropdown__menu {
+  color: var(--primary-text) !important;
+  width: fit-content !important;
+  margin-left: 5%;
+}
