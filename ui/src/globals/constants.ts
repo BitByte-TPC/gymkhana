@@ -17,19 +17,4 @@ export const RESPONSIVE_BREAKPOINTS_CAROUSEL = {
   },
 };
 
-export const CLUB_OPTIONS = [
-  {value: 'all', label: 'Clubs'},
-  {value: 'S&T', label: 'Technical Clubs'},
-  {value: 'Cultural', label: 'Cultural Clubs'},
-  {value: 'Sports', label: 'Sports Clubs'},
-];
-
-export const EVENT_OPTIONS = [
-  {value: 'upcoming', label: 'Upcoming'},
-  {value: 'past', label: 'Past'},
-  {value: 'ongoing', label: 'Ongoing'},
-];
-
 Object.freeze(RESPONSIVE_BREAKPOINTS_CAROUSEL);
-Object.freeze(CLUB_OPTIONS);
-Object.freeze(EVENT_OPTIONS);
