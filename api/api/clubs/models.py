@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.db import models
 
 
@@ -17,3 +19,6 @@ class Club (models.Model):
     description = models.TextField()
     email = models.EmailField(max_length=50, unique=True)
     logo = models.URLField(max_length=500)
+    registration_open = models.BooleanField(default=False)
+    fee_required = models.BooleanField(default=False)
+    registration_fee = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal('0.0'))
