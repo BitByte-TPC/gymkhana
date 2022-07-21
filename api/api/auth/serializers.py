@@ -11,7 +11,7 @@ class CreateTokenRequestSerializer(serializers.Serializer):
 class TokenUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ['email', 'first_name', 'last_name', 'is_active']
+        fields = ['id', 'email', 'first_name', 'last_name', 'is_active']
 
 
 class CreateTokenResponseSerializer(serializers.ModelSerializer):

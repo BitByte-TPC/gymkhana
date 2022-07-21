@@ -46,6 +46,7 @@ class TokenViewTest(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertDictEqual(response.data['user'], {
+            'id': 1,
             'email': 'test@user.com',
             'first_name': 'Test',
             'last_name': 'User',
@@ -84,6 +85,7 @@ class TokenViewTest(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertDictEqual(response.data['user'], {
+            'id': 1,
             'email': 'test@user.com',
             'first_name': 'Test',
             'last_name': 'User',
@@ -124,6 +126,7 @@ class TokenViewTest(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertDictEqual(response.data['user'], {
+            'id': 1,
             'email': 'test@user.com',
             'first_name': 'Test',
             'last_name': 'User',
