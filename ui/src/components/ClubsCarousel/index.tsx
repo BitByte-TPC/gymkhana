@@ -5,10 +5,16 @@ import {useAuthFetch} from '../../api/useAuthFetch';
 import {useEffect, useState} from 'react';
 import {useLogout} from '../../hooks/useLogout';
 import {HeadingDropdown} from '../HeadingDropdown';
-import {
-  CLUB_OPTIONS,
-  RESPONSIVE_BREAKPOINTS_CAROUSEL,
-} from '../../globals/constants';
+import {RESPONSIVE_BREAKPOINTS_CAROUSEL} from '../../globals/constants';
+
+export const CLUB_OPTIONS = [
+  {value: 'all', label: 'Clubs'},
+  {value: 'S&T', label: 'Technical Clubs'},
+  {value: 'Cultural', label: 'Cultural Clubs'},
+  {value: 'Sports', label: 'Sports Clubs'},
+];
+
+Object.freeze(CLUB_OPTIONS);
 
 interface ClubsCarouselData {
   name: string;

@@ -4,10 +4,7 @@ import 'react-multi-carousel/lib/styles.css';
 import {dummyNewsImg} from '../../assets';
 import {HeadingDropdown} from '../HeadingDropdown';
 import {useState} from 'react';
-import {
-  EVENT_OPTIONS,
-  RESPONSIVE_BREAKPOINTS_CAROUSEL,
-} from '../../globals/constants';
+import {RESPONSIVE_BREAKPOINTS_CAROUSEL} from '../../globals/constants';
 
 const data = [
   {
@@ -33,14 +30,47 @@ const data = [
   },
 ];
 
+const EVENT_OPTIONS: {
+  value: 'upcoming' | 'past' | 'ongoing';
+  label: string;
+}[] = [
+  {value: 'upcoming', label: 'Upcoming'},
+  {value: 'past', label: 'Past'},
+  {value: 'ongoing', label: 'Ongoing'},
+];
+Object.freeze(EVENT_OPTIONS);
+
+interface EventsCarouselData {
+  name: string;
+  club: string;
+  imgUrl: string;
+  startTime: Date;
+  endTime: Date;
+}
+
+export const shouldRenderEvent = (
+  eventType: 'upcoming' | 'past' | 'ongoing',
+  event: EventsCarouselData
+) => {
+  const curDate = new Date(Date.now());
+  return (
+    (eventType === 'upcoming' && event.startTime > curDate) ||
+    (eventType === 'past' && event.endTime < curDate) ||
+    (eventType === 'ongoing' &&
+      event.startTime <= curDate &&
+      event.endTime >= curDate)
+  );
+};
+
 export const EventsCarousel: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState(EVENT_OPTIONS[0]);
-  const curDate = new Date(Date.now());
   return (
     <div className={styles.container}>
       <HeadingDropdown
         options={EVENT_OPTIONS}
         selectedOption={selectedOption}
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         setSelectedOption={setSelectedOption}
       />
       <Carousel
@@ -49,12 +79,7 @@ export const EventsCarousel: React.FC = () => {
       >
         {data.map(
           (event, i) =>
-            ((selectedOption.value === 'upcoming' &&
-              event.startTime > curDate) ||
-              (selectedOption.value === 'past' && event.endTime < curDate) ||
-              (selectedOption.value === 'ongoing' &&
-                event.startTime <= curDate &&
-                event.endTime >= curDate)) && (
+            shouldRenderEvent(selectedOption.value, event) && (
               <div key={i} className={styles.card}>
                 <img src={event.imgUrl} alt="event" />
                 <div>
