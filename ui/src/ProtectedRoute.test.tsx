@@ -1,62 +1,75 @@
-// eslint-disable-next-line node/no-unpublished-import
-import {render} from '@testing-library/react';
-import {BrowserRouter} from 'react-router-dom';
-import {Router} from './Routes';
+import {createMemoryHistory} from 'history';
+import {createRoot, Root} from 'react-dom/client';
+import {act} from 'react-dom/test-utils';
+import {Router} from 'react-router-dom';
+import {ProtectedRoute} from './ProtectedRoute';
 
 global.fetch = jest.fn();
-const localStorageMock = (() => {
-  let store: {[key: string]: string} = {};
-  return {
-    getItem(key: string) {
-      return store[key] || null;
-    },
-    setItem(key: string, value: string) {
-      store[key] = value.toString();
-    },
-    removeItem(key: string) {
-      delete store[key];
-    },
-    clear() {
-      store = {};
-    },
-  };
-})();
 
-Object.defineProperty(window, 'sessionStorage', {
-  value: localStorageMock,
-});
+let container: Element | null = null;
+let root: Root | null = null;
 
-jest.mock('./assets/index.ts', () => jest.fn());
-jest.mock('./globals/constants.ts', () => jest.fn());
+jest.mock('./globals/constants', () => jest.fn());
 
-describe('Home', () => {
+jest.mock('./assets', () => jest.fn());
+
+describe('<ProtectedRoute />', () => {
+  const {location} = window;
+
+  beforeAll(() => {
+    container = document.createElement('div');
+    document.body.appendChild(container);
+    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+    delete (window as any).location;
+    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+    window.location = {assign: jest.fn()} as any;
+  });
+
   beforeEach(() => {
+    act(() => {
+      root = createRoot(container!);
+    });
     window.sessionStorage.clear();
-    jest.restoreAllMocks();
+  });
+  it('should not redirect to /login if token is valid', () => {
+    window.sessionStorage.setItem('token', 'some-token');
+    const history = createMemoryHistory();
+    act(() => {
+      root!.render(
+        <Router location={history.location} navigator={history}>
+          <ProtectedRoute>
+            <div>homepage</div>
+          </ProtectedRoute>
+        </Router>
+      );
+    });
+
+    expect(history.location.pathname).not.toBe('/login');
+  });
+  it('should redirect to /login if token is not valid', () => {
+    const history = createMemoryHistory();
+    act(() => {
+      root!.render(
+        <Router location={history.location} navigator={history}>
+          <ProtectedRoute>
+            <div>homepage</div>
+          </ProtectedRoute>
+        </Router>
+      );
+    });
+
+    expect(history.location.pathname).toBe('/login');
   });
 
-  it('should redirect to login', () => {
-    const {getByTestId} = render(
-      <BrowserRouter>
-        <Router />
-      </BrowserRouter>
-    );
-    const component = getByTestId('signin');
-    expect(component).toBeDefined();
+  afterEach(() => {
+    act(() => {
+      root!.unmount();
+    });
+    window.sessionStorage.clear();
   });
 
-  it('should not redirect to login', () => {
-    window.sessionStorage.setItem('token', 'val');
-    const {getByTestId} = render(
-      <BrowserRouter>
-        <Router />
-      </BrowserRouter>
-    );
-    let component;
-    try {
-      component = getByTestId('signin');
-      // eslint-disable-next-line no-empty
-    } catch (err) {}
-    expect(component).toBeUndefined();
+  afterAll(() => {
+    document.body.removeChild(container!);
+    window.location = location;
   });
 });
