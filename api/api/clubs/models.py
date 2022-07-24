@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -6,21 +8,20 @@ User = get_user_model()
 
 
 class Club (models.Model):
-    CULTURAL_CLUB = 'Cultural'
-    SCIENCE_AND_TECH_CLUB = 'Science & Technology'
-    SPORTS_CLUB = 'Sports'
-
-    CLUB_TYPE_CHOICES = [
-        ('Cultural', CULTURAL_CLUB),
-        ('S&T', SCIENCE_AND_TECH_CLUB),
-        ('Sports', SPORTS_CLUB)
-    ]
+    class ClubType(models.TextChoices):
+        CULTURAL = 'Cultural', _('Cultural')
+        SCIENCE_AND_TECH = 'S&T', _('Science & Technology')
+        SPORTS = 'Sports', _('Sports')
 
     name = models.CharField(max_length=100, unique=True)
-    category = models.CharField(max_length=10, choices=CLUB_TYPE_CHOICES)
+    category = models.CharField(max_length=10, choices=ClubType.choices)
     description = models.TextField()
     email = models.EmailField(max_length=50, unique=True)
     logo = models.URLField(max_length=500)
+    registration_open = models.BooleanField(default=False)
+    fee_required = models.BooleanField(default=False)
+    registration_fee = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal('0.0'))
+    registration_deadline = models.DateTimeField(blank=True, null=True)
 
 
 class ClubRegistrationRequests(models.Model):
