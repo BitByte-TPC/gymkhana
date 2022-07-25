@@ -7,6 +7,7 @@ REST_FRAMEWORK['DEFAULT_AUTHENTICATION_CLASSES'] = [  # noqa: F405
     'rest_framework.authentication.SessionAuthentication'
 ] + REST_FRAMEWORK['DEFAULT_AUTHENTICATION_CLASSES']  # noqa: F405
 
+LOGGING['root']['level'] = 'DEBUG'  # noqa: F405
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
