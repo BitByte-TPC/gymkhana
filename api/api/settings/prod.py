@@ -6,6 +6,7 @@ from .settings import *  # noqa: F403, F401
 DEBUG = False
 
 REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = ['rest_framework.renderers.JSONRenderer']  # noqa: F405
+LOGGING['root']['level'] = 'INFO'  # noqa: F405
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
