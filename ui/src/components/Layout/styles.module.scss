@@ -1,19 +1,23 @@
 @import '../../index';
 
 .container {
-  min-height: 100vh;
+  height: 100vh;
   width: 100vw;
   background-color: #f4f5f7;
   display: flex;
 }
 .mainContent {
   width: 82%;
+  overflow-y: scroll;
 }
 .sidebarContainer {
   transition: transform 0.3s ease-in-out;
 }
 .openSidebar {
   transform: translateX(0) !important;
+}
+.mainContentBlur {
+  overflow-y: hidden;
 }
 .mainContentBlur::after {
   content: '\A';
