@@ -25,6 +25,7 @@ interface ClubsCarouselData {
 export const ClubsCarousel: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState(CLUB_OPTIONS[0]);
   const {data, error} = useAuthFetch('/clubs');
+  const clubsData = data ? data.results : null;
   const logout = useLogout();
   useEffect(() => {
     if (error) {
@@ -43,8 +44,8 @@ export const ClubsCarousel: React.FC = () => {
         responsive={RESPONSIVE_BREAKPOINTS_CAROUSEL}
         className={styles.carousel}
       >
-        {data ? (
-          data.map(
+        {clubsData ? (
+          clubsData.map(
             (club: ClubsCarouselData, index: number) =>
               (selectedOption.value === 'all' ||
                 selectedOption.value === club.category) && (
