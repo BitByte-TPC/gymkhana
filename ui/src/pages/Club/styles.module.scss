@@ -1,0 +1,101 @@
+@import '../../index.scss';
+.container {
+  background-color: var(--primary-bg);
+  margin: 1rem;
+  border-radius: 32px;
+  .h2 {
+    color: var(--secondary-text);
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+  .p {
+    color: var(--primary-text);
+  }
+  .header {
+    height: 17.5rem;
+    background-color: var(--primary-color);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 32px 32px 0 0;
+    position: relative;
+    .headerContent {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 32px 32px 0 0;
+      background-color: var(--black-overlay);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 1rem;
+      .logo {
+        width: 5rem;
+        height: 5rem;
+        border-radius: 50%;
+      }
+      .clubName {
+        font-size: clamp(1rem, 7vw, 2.25rem);
+        font-weight: 600;
+        color: var(--secondary-color);
+      }
+      .registerBtn {
+        all: unset;
+        background-color: var(--primary-color);
+        color: var(--secondary-color);
+        border-radius: 15px;
+        font-weight: 600;
+        width: 10rem;
+        height: 2.5rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
+  .pageContent {
+    display: flex;
+    padding: 2rem;
+    margin: 0 1rem;
+
+    .sidebar {
+      width: 30%;
+      margin-right: 1rem;
+    }
+    .main {
+      width: 70%;
+      .about {
+        .description {
+          color: var(--primary-text);
+        }
+      }
+      .activeEvents {
+        margin-top: 2rem;
+      }
+    }
+  }
+}
+@media only screen and (max-width: $sm) {
+  .container {
+    .pageContent {
+      flex-direction: column;
+      padding: 0.5rem 0;
+      .sidebar {
+        margin-top: 0.5rem;
+        width: 100%;
+        order: 2;
+      }
+      .main {
+        width: 100%;
+        order: 1;
+      }
+    }
+  }
+}

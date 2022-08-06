@@ -5,6 +5,7 @@ import {Home} from './pages/Home';
 import {Login} from './pages/Login';
 import {LoginRedirect} from './pages/LoginRedirect';
 import {Profile} from './pages/Profile';
+import {Club} from './pages/Club';
 
 export const Router: React.FC = () => {
   return (
@@ -15,6 +16,15 @@ export const Router: React.FC = () => {
           element={
             <ProtectedRoute>
               <Home />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/clubs/:clubName"
+          element={
+            <ProtectedRoute>
+              <Club />
             </ProtectedRoute>
           }
         />

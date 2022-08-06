@@ -6,6 +6,7 @@ import {useEffect, useState} from 'react';
 import {useLogout} from '../../hooks/useLogout';
 import {HeadingDropdown} from '../HeadingDropdown';
 import {RESPONSIVE_BREAKPOINTS_CAROUSEL} from '../../globals/constants';
+import {useNavigate} from 'react-router-dom';
 
 export const CLUB_OPTIONS = [
   {value: 'all', label: 'Clubs'},
@@ -26,6 +27,7 @@ export const ClubsCarousel: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState(CLUB_OPTIONS[0]);
   const {data, error} = useAuthFetch('/clubs');
   const clubsData = data ? data.results : null;
+  const navigate = useNavigate();
   const logout = useLogout();
   useEffect(() => {
     if (error) {
@@ -49,7 +51,11 @@ export const ClubsCarousel: React.FC = () => {
             (club: ClubsCarouselData, index: number) =>
               (selectedOption.value === 'all' ||
                 selectedOption.value === club.category) && (
-                <div key={index} className={styles.card}>
+                <div
+                  key={index}
+                  className={styles.card}
+                  onClick={() => navigate(`clubs/${club.name}`)} // TODO: change club.name to club.slug
+                >
                   <img src={club.logo} alt="club" />
                   <div>
                     <div className={styles.name}>{club.name}</div>
