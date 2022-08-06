@@ -1,4 +1,5 @@
 import React from 'react';
+import {useNavigate} from 'react-router-dom';
 import {
   logo,
   googleChromeIcon,
@@ -16,6 +17,8 @@ import styles from './styles.module.scss';
 
 export const Sidebar: React.FC = () => {
   const logout = useLogout();
+  const navigate = useNavigate();
+
   return (
     <div className={styles.container}>
       <div className={styles.menuContainer}>
@@ -45,7 +48,11 @@ export const Sidebar: React.FC = () => {
           <div className={styles.container_text_row}>General</div>
         </div>
 
-        <SidebarRow icon={settingsIcon} text="Settings" />
+        <SidebarRow
+          icon={settingsIcon}
+          text="Settings"
+          onClick={() => navigate('/profile')}
+        />
         <SidebarRow icon={signoutIcon} text="Log out" onClick={logout} />
       </div>
     </div>
