@@ -21,7 +21,7 @@ class Token(models.Model):
     @staticmethod
     def if_expired_get_new(token, user):
         token_life = (datetime.now(timezone.utc) - token.created_at).days
-        if(token_life >= settings.AUTH_ALLOWED_TOKEN_LIFE_IN_DAYS):
+        if (token_life >= settings.AUTH_ALLOWED_TOKEN_LIFE_IN_DAYS):
             token.delete()
             return Token.objects.create(token=uuid.uuid4().hex, user=user)
         return token

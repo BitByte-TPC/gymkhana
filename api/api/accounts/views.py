@@ -15,7 +15,7 @@ class CreateUserView(generics.CreateAPIView):
     serializer_class = UserSerializer
 
 
-class UpdateUserView(generics.UpdateAPIView):
+class RetrieveUpdateUserView(generics.RetrieveUpdateAPIView):
     """ View to update user """
     permission_classes = (IsOwnerOrAdmin,)
     queryset = User.objects.all()

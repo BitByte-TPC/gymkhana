@@ -464,3 +464,27 @@ def testUpdateUserView_studentUserInRequest_staffDataProvided_ignoresStaffDataCh
     assert response.status_code == status.HTTP_200_OK
     assert response.data['student']['roll_no'] == '21abc000'
     assert updated_test_user.student.roll_no == '21abc000'
+
+
+@pytest.mark.django_db
+def testRetrieveUser_nonOwnerRequest_retrieveSuccessful(client, test_user):
+    # given
+    user = User.objects.create(email="somemail@a.com", first_name="first", last_name="last")
+    client.force_authenticate(test_user)
+
+    # when
+    response = client.get(f'/users/{user.id}/', format='json')
+
+    # then
+    assert response.status_code == status.HTTP_200_OK
+    assert response.data == {
+        'email': 'somemail@a.com',
+        'first_name': 'first',
+        'last_name': 'last',
+        'gender': 'M',
+        'contact_no': None,
+        'user_type': 'Student',
+        'picture_url': '',
+        'student': None,
+        'faculty': None,
+        'staff': None}
