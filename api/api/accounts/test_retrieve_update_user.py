@@ -469,6 +469,8 @@ def testUpdateUserView_studentUserInRequest_staffDataProvided_ignoresStaffDataCh
 @pytest.mark.django_db
 def testRetrieveUser_nonOwnerRequest_retrieveSuccessful(client, test_user):
     # given
+    test_user.is_staff = True
+    test_user.save()
     user = User.objects.create(email="somemail@a.com", first_name="first", last_name="last")
     client.force_authenticate(test_user)
 
