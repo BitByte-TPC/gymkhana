@@ -19,12 +19,12 @@ def test_user(django_user_model):
 
 @pytest.mark.django_db
 @pytest.fixture(scope='function')
-def test_club(django_user_model):
-    return Club.objects.create(name="Bitbyte - The Programming Club",
-                               category="S&T",
-                               description="Some desc",
-                               email="theprogclub@iiitdmj.ac.in",
-                               logo="https://www.iiitdmj.ac.in/webix.iiitdmj.ac.in/tpclogo.png")
+def test_club():
+    return Club.objects.create(name='Bitbyte - The Programming Club',
+                               category='S&T',
+                               description='Some desc',
+                               email='theprogclub@iiitdmj.ac.in',
+                               logo='https://www.iiitdmj.ac.in/webix.iiitdmj.ac.in/tpclogo.png')
 
 
 @pytest.fixture(scope='function')
@@ -33,7 +33,7 @@ def client():
 
 
 @pytest.mark.django_db
-def testListEvents_noEventsInDb_returnsEmptyList(test_user, client):
+def testListEvent_noEventInDb_returnsEmptyList(test_user, client):
     # given
     client.force_authenticate(test_user)
 
@@ -45,7 +45,7 @@ def testListEvents_noEventsInDb_returnsEmptyList(test_user, client):
 
 
 @pytest.mark.django_db
-def testListEvents_oneEventInDb_returnsOneEventInResponse(client, test_user, test_club):
+def testListEvent_oneEventInDb_returnsOneEventInResponse(client, test_user, test_club):
     # given
     client.force_authenticate(test_user)
 
@@ -66,8 +66,10 @@ def testListEvents_oneEventInDb_returnsOneEventInResponse(client, test_user, tes
 
 
 @pytest.mark.django_db
-@pytest.mark.parametrize('position', ['Core member', 'Coordinator', 'Co-Coordinator'])
-def testCreateEvents_coreMemberRequest_creationSuccessful(client, test_user, test_club, position):
+@pytest.mark.parametrize('position', [Roles.ROLE_COORDINATOR,
+                                      Roles.ROLE_CO_COORDINATOR,
+                                      Roles.ROLE_COORDINATOR])
+def testCreateEvent_coreMemberRequest_creationSuccessful(client, test_user, test_club, position):
     # given
     client.force_authenticate(test_user)
     Roles.objects.create(name=position,
@@ -86,7 +88,7 @@ def testCreateEvents_coreMemberRequest_creationSuccessful(client, test_user, tes
                                         })
 
     # then
-    created_event = Events.objects.all()[0]
+    created_event = Events.objects.get(id=response.data['id'])
 
     assert response.status_code == status.HTTP_201_CREATED
     assert response.data == {'id': created_event.id,
@@ -104,9 +106,10 @@ def testCreateEvents_coreMemberRequest_creationSuccessful(client, test_user, tes
 
 
 @pytest.mark.django_db
-def testCreateEvents_adminRequest_creationSuccessful(client, test_user, test_club):
+def testCreateEvent_adminRequest_creationSuccessful(client, test_user, test_club):
     # given
     test_user.is_staff = True
+    test_user.save()
     client.force_authenticate(test_user)
 
     # when
@@ -120,7 +123,7 @@ def testCreateEvents_adminRequest_creationSuccessful(client, test_user, test_clu
                                         })
 
     # then
-    created_event = Events.objects.all()[0]
+    created_event = Events.objects.get(id=response.data['id'])
 
     assert response.status_code == status.HTTP_201_CREATED
     assert response.data == {'id': created_event.id,
@@ -138,7 +141,7 @@ def testCreateEvents_adminRequest_creationSuccessful(client, test_user, test_clu
 
 
 @pytest.mark.django_db
-def testCreateEvents_unauthorizedUserRequest_throwsForbidden(client, test_user, test_club):
+def testCreateEvent_unauthorizedUserRequest_throwsForbidden(client, test_user, test_club):
     # given
     client.force_authenticate(test_user)
 
@@ -156,7 +159,7 @@ def testCreateEvents_unauthorizedUserRequest_throwsForbidden(client, test_user, 
 
 
 @pytest.mark.django_db
-def testCreateEvents_missingDataInRequest_throwsBasRequest(client, test_user, test_club):
+def testCreateEvent_missingDataInRequest_throwsBadRequest(client, test_user, test_club):
     # given
     client.force_authenticate(test_user)
 
@@ -171,3 +174,11 @@ def testCreateEvents_missingDataInRequest_throwsBasRequest(client, test_user, te
 
     # then
     assert response.status_code == status.HTTP_400_BAD_REQUEST
+    assert response.json() == {
+                            'starts_at': [
+                                'This field is required.'
+                            ],
+                            'ends_at': [
+                                'This field is required.'
+                            ]
+                           }
