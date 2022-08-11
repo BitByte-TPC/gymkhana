@@ -53,7 +53,8 @@ class ListClubsViewTest(APITestCase):
                                 category="S&T",
                                 description="some random string",
                                 email=uuid.uuid4(),
-                                logo="https://www.iiitdmj.ac.in/webix.iiitdmj.ac.in/tpclogo.png")
+                                logo="https://www.iiitdmj.ac.in/webix.iiitdmj.ac.in/tpclogo.png",
+                                slug=uuid.uuid4())
         # when
         response = self.client.get('/clubs/', format='json')
         # then
@@ -96,7 +97,8 @@ class UpdateClubsViewTest(APITestCase):
                                         category="S&T",
                                         description="Some desc here",
                                         email="theprogclub@iiitdmj.ac.in",
-                                        logo="#")
+                                        logo="#",
+                                        slug='tpc')
 
         # when
         response = self.client.put(f'/clubs/{test_club.id}/', {'name': 'changed_club_name',
@@ -113,7 +115,8 @@ class UpdateClubsViewTest(APITestCase):
                                          'category': 'S&T',
                                          'logo': 'https://iiitdmj.ac.in',
                                          'description': 'Some desc here',
-                                         'email': 'theprogclub@iiitdmj.ac.in'})
+                                         'email': 'theprogclub@iiitdmj.ac.in',
+                                         'slug': 'tpc'})
         self.assertEqual(updated_club.name, 'changed_club_name')
         self.assertEqual(updated_club.category, 'S&T')
 
@@ -159,7 +162,8 @@ def testUpdateClubs_positionHolderRequest_updatesSuccessful(position):
                                     category="S&T",
                                     description="some_desc_here",
                                     email="theprogclub@iiitdmj.ac.in",
-                                    logo="#")
+                                    logo="#",
+                                    slug='tpc')
 
     Roles.objects.create(name=position,
                          club=test_club,
@@ -181,7 +185,8 @@ def testUpdateClubs_positionHolderRequest_updatesSuccessful(position):
                              'category': 'Cultural',
                              'logo': 'https://changedlogo.com',
                              'description': 'some_desc_here',
-                             'email': 'theprogclub@iiitdmj.ac.in'}
+                             'email': 'theprogclub@iiitdmj.ac.in',
+                             'slug': 'tpc'}
     assert updated_club.name == 'changed_club_name'
     assert updated_club.category == 'Cultural'
     assert updated_club.logo == 'https://changedlogo.com'
