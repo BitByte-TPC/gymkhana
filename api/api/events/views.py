@@ -17,7 +17,7 @@ class ListCreateEventsView(ListCreateAPIView):
         if self._has_create_permission(serializer.validated_data):
             serializer.save()
         else:
-            raise PermissionDenied({"message": "You are not allowed to perform this action"})
+            raise PermissionDenied({'message': 'You are not allowed to perform this action'})
 
     # Allow only Core members (including Coordinator and Co-Coordinator)
     # and admins to create events
