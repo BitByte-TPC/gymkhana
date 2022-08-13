@@ -24,7 +24,8 @@ def test_club():
                                category='S&T',
                                description='Some desc',
                                email='theprogclub@iiitdmj.ac.in',
-                               logo='https://www.iiitdmj.ac.in/webix.iiitdmj.ac.in/tpclogo.png')
+                               logo='https://www.iiitdmj.ac.in/webix.iiitdmj.ac.in/tpclogo.png',
+                               slug='tpc')
 
 
 @pytest.fixture(scope='function')
@@ -66,7 +67,7 @@ def testListEvent_oneEventInDb_returnsOneEventInResponse(client, test_user, test
 
 
 @pytest.mark.django_db
-@pytest.mark.parametrize('position', [Roles.ROLE_COORDINATOR,
+@pytest.mark.parametrize('position', [Roles.ROLE_CORE_MEMBER,
                                       Roles.ROLE_CO_COORDINATOR,
                                       Roles.ROLE_COORDINATOR])
 def testCreateEvent_coreMemberRequest_creationSuccessful(client, test_user, test_club, position):
