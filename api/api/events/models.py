@@ -1,7 +1,6 @@
+from api.clubs.models import Club
 from django.contrib.auth import get_user_model
 from django.db import models
-
-from api.clubs.models import Club
 
 User = get_user_model()
 

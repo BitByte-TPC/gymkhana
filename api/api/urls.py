@@ -8,4 +8,5 @@ urlpatterns = [
     path('clubs/', include('api.clubs.urls')),
     path('ping/', ping_handler, name='ping'),
     path('users/', include('api.accounts.urls')),
+    path('events/', include('api.events.urls')),
 ]
