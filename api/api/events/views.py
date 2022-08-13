@@ -1,10 +1,11 @@
 from django.db.models import Q
 from rest_framework.exceptions import PermissionDenied
-from rest_framework.generics import ListCreateAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 
 from api.roles.models import Roles
 
 from .models import Events
+from .permissions import IsCoreMemberOrAdminElseReadOnly
 from .serializers import EventSerializer
 
 
@@ -29,3 +30,10 @@ class ListCreateEventsView(ListCreateAPIView):
         user_roles = self.request.user.roles.filter(club__id=validated_data['club'].id)
 
         return (self.request.user.is_staff or (allowed_roles & user_roles).exists())
+
+
+class RetrieveUpdateDestroyEventsView(RetrieveUpdateDestroyAPIView):
+    """ View to retrieve, update and destroy events """
+    queryset = Events.objects.all()
+    serializer_class = EventSerializer
+    permission_classes = (IsCoreMemberOrAdminElseReadOnly,)
