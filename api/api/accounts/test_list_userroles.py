@@ -3,7 +3,7 @@ from datetime import date
 import pytest
 from django.contrib.auth import get_user_model
 from rest_framework import status
-from rest_framework.test import APITestCase
+from rest_framework.test import APIClient
 
 from api.clubs.models import Club
 from api.roles.models import Roles
@@ -11,48 +11,60 @@ from api.roles.models import Roles
 User = get_user_model()
 
 
-class ListUserRolesTest(APITestCase):
-    """Tests ListRolesView for getting the list of clubs where user is a core member."""
-    @pytest.mark.django_db
-    def testListRoles_userIsNot_CoreMember_returnsHTTPNotFound(self):
-        # given
-        user = User.objects.create(
-            email='test@user.com', first_name='Test', last_name='User', is_staff=True)
-        self.client.force_authenticate(user)
+@pytest.mark.django_db
+@pytest.fixture(scope='function')
+def test_user(django_user_model):
+    return django_user_model.objects.create(email='test@user.com',
+                                            first_name='test',
+                                            last_name='User')
 
-        club = Club.objects.create(name="Bitbyte - The Programming Club",
-                                        category="S&T",
-                                        description="Some desc here",
-                                        email="theprogclub@iiitdmj.ac.in",
-                                        logo="https://iiitdmj.ac.in")
-        Roles.objects.create(name='Faculty Incharge', user=user,
-                             club=club, assigned_at=date.today(), active=True)
 
-        # when
+@pytest.mark.django_db
+@pytest.fixture(scope='function')
+def test_club():
+    return Club.objects.create(name='Bitbyte - The Programming Club',
+                               category='S&T',
+                               description='Some desc',
+                               email='theprogclub@iiitdmj.ac.in',
+                               logo='https://www.iiitdmj.ac.in/webix.iiitdmj.ac.in/tpclogo.png')
 
-        response = self.client.get(f'/users/{user.id}/roles/')
-        # then
-        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
-    def testListRoles_userIs_CoreMember_returnsRolesList(self):
-        # given
-        user = User.objects.create(
-            email='test@user.com', first_name='Test', last_name='User', is_staff=True)
-        self.client.force_authenticate(user)
+@pytest.fixture(scope='function')
+def client():
+    return APIClient()
 
-        club = Club.objects.create(name="Bitbyte - The Programming Club",
-                                        category="S&T",
-                                        description="Some desc here",
-                                        email="theprogclub@iiitdmj.ac.in",
-                                        logo="https://iiitdmj.ac.in")
-        Roles.objects.create(name='Coordinator', user=user, club=club,
-                             assigned_at=date.today(), active=True)
-        Roles.objects.create(name='Co-Coordinator', user=user, club=club,
-                             assigned_at=date.today(), active=True)
-        Roles.objects.create(name='Core member', user=user, club=club,
-                             assigned_at=date.today(), active=True)
-        # when
-        response = self.client.get(f'/users/{user.id}/roles/')
-        # then
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), 3)
+
+@pytest.mark.django_db
+def testListRoles_userIsNotCoreMember_returnsEmptyList(client, test_user, test_club):
+    # given
+    client.force_authenticate(test_user)
+
+    Roles.objects.create(name='Faculty Incharge', user=test_user,
+                         club=test_club, assigned_at=date.today(), active=True)
+
+    # when
+    response = client.get(f'/users/{test_user.id}/roles/', format='json')
+
+    # then
+    assert response.status_code == status.HTTP_204_NO_CONTENT
+    assert len(response.data) == 0
+
+
+@pytest.mark.django_db
+def testListRoles_userIsCoreMember_returnsRolesList(client, test_user, test_club):
+    # given
+    client.force_authenticate(test_user)
+
+    Roles.objects.create(name='Coordinator', user=test_user, club=test_club,
+                         assigned_at=date.today(), active=True)
+    Roles.objects.create(name='Co-Coordinator', user=test_user, club=test_club,
+                         assigned_at=date.today(), active=True)
+    Roles.objects.create(name='Core member', user=test_user, club=test_club,
+                         assigned_at=date.today(), active=True)
+
+    # when
+    response = client.get(f'/users/{test_user.id}/roles/', format='json')
+
+    # then
+    assert response.status_code == status.HTTP_200_OK
+    assert len(response.data) == 3
