@@ -1,5 +1,6 @@
 import classNames from 'classnames';
-import {useState, useRef, useEffect} from 'react';
+import React from 'react';
+import {useState, useRef, useEffect, useContext} from 'react';
 import {Sidebar} from '../../components/Sidebar/Sidebar';
 import {TopBar} from '../../components/TopBar';
 import styles from './styles.module.scss';
@@ -11,6 +12,7 @@ interface LayoutProps {
 export const Layout: React.FC<LayoutProps> = props => {
   const sidebarRef = useRef<HTMLDivElement>(null);
   const [isSidebarOpenOnMobile, setIsSidebarOpenOnMobile] = useState(false);
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -27,7 +29,7 @@ export const Layout: React.FC<LayoutProps> = props => {
     };
   });
   return (
-    <div className={styles.container}>
+    <div id="theme_toggler" className={styles.container}>
       <div
         ref={sidebarRef}
         className={classNames(styles.sidebarContainer, {

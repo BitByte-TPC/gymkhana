@@ -39,3 +39,7 @@ export const settingsIcon = new URL(
 
 export const signoutIcon = new URL('./images/signoutIcon.svg', import.meta.url)
   .href;
+
+export const moonIcon = new URL('./images/moonIcon.svg', import.meta.url).href;
+
+export const sunIcon = new URL('./images/sunIcon.svg', import.meta.url).href;

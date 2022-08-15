@@ -10,6 +10,20 @@
   align-items: center;
   position: relative;
 }
+
+.container_dark_theme {
+  height: 100vh;
+  width: 100vw;
+  background-color: #e2e2e2;
+  background-image: url('../../assets/images/darkbackground.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
 .card {
   background-color: var(--primary-bg);
   height: 60vh;

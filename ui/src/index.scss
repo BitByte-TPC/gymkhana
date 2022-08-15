@@ -17,16 +17,37 @@ $sm: 700px;
 :root {
   --primary-bg: white;
   --secondary-bg: #829bb0;
+  --tertiary-bg: #f4f5f7;
+  --hover-bg: #ebebeb;
 
   --primary-text: #304455;
   --secondary-text: #889fb4;
+  --tertiary-text: #ffffff;
 
   --primary-color: #d81f26;
   --secondary-color: white;
 
   --off-white: #f6f7fe;
   --input-bg: #bcd5eb36;
-  --black-overlay: rgba(0, 0, 0, 0.65);
+  --black-overlay: #000000a6;
+}
+
+.dark_mode {
+  --primary-bg: rgb(20, 20, 20);
+  --secondary-bg: #c4c0c0;
+  --tertiary-bg: #111111;
+  --hover-bg: #333333;
+
+  --primary-text: #a8afb4;
+  --secondary-text: #616a72;
+  --tertiary-text: #ffffff;
+
+  --primary-color: #d81f26;
+  --secondary-color: rgb(32, 32, 32);
+
+  --off-white: #222222;
+  --input-bg: #0a0a0a36;
+  --black-overlay: #0a0a0a36;
 }
 
 .dropdown__control {
