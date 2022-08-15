@@ -1,5 +1,7 @@
 import styles from './styles.module.scss';
 import {logo} from '../../assets';
+import {useState, useContext} from 'react';
+import {DarkModeContext} from '../Contexts/DarkModeContext';
 interface TopBarProps {
   setSidebarVisibility: (isSidebarOpenOnMobile: boolean) => void;
 }
@@ -8,8 +10,19 @@ export const TopBar: React.FC<TopBarProps> = ({setSidebarVisibility}) => {
   const menuClickHandler = () => {
     setSidebarVisibility(true);
   };
+
+  //@ts-ignore
+  const {darkMode, toggleDarkMode} = useContext(DarkModeContext);
+
   return (
     <div className={styles.container}>
+      <button
+        className={styles.btn}
+        data-testid="enabledarkmode"
+        onClick={() => toggleDarkMode()}
+      >
+        {darkMode ? 'Dark Mode' : 'Light Mode'}
+      </button>
       <div className={styles.logoContainer} onClick={menuClickHandler}>
         <img className={styles.logo} src={logo} alt="logo" />
       </div>

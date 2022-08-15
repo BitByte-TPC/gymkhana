@@ -6,6 +6,13 @@
   background-color: #f4f5f7;
   display: flex;
 }
+
+.container_dark_mode {
+  height: 100vh;
+  width: 100vw;
+  background-color: black;
+  display: flex;
+}
 .mainContent {
   width: 82%;
   overflow-y: scroll;

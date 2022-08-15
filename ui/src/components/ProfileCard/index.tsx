@@ -5,6 +5,8 @@ import * as z from 'zod';
 import {Input} from '../FormComponents/Input';
 import {Button} from '../Button';
 import {Textarea} from '../FormComponents/Textarea';
+import {useContext} from 'react';
+import {DarkModeContext} from '../Contexts/DarkModeContext';
 
 const mobileNumberRegex = /[0-9]{10}/;
 
@@ -34,9 +36,21 @@ export const ProfileCard: React.FC = () => {
     // eslint-disable-next-line no-console
     console.log(data);
   };
+
+  //@ts-ignore
+  const {darkMode} = useContext(DarkModeContext);
+
   return (
-    <div className={styles.cardContainer}>
-      <div className={styles.leftContainer}>
+    <div
+      className={
+        darkMode ? styles.cardContainer : styles.cardContainer_dark_theme
+      }
+    >
+      <div
+        className={
+          darkMode ? styles.leftContainer : styles.leftContainer_dark_theme
+        }
+      >
         <img
           src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
           alt="profile-img"

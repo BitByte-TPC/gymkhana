@@ -1,8 +1,10 @@
 import classNames from 'classnames';
-import {useState, useRef, useEffect} from 'react';
+import React from 'react';
+import {useState, useRef, useEffect, useContext} from 'react';
 import {Sidebar} from '../../components/Sidebar/Sidebar';
 import {TopBar} from '../../components/TopBar';
 import styles from './styles.module.scss';
+import {DarkModeContext} from '../Contexts/DarkModeContext';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -11,6 +13,10 @@ interface LayoutProps {
 export const Layout: React.FC<LayoutProps> = props => {
   const sidebarRef = useRef<HTMLDivElement>(null);
   const [isSidebarOpenOnMobile, setIsSidebarOpenOnMobile] = useState(false);
+
+  //@ts-ignore
+  const {darkMode} = useContext(DarkModeContext);
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -27,7 +33,7 @@ export const Layout: React.FC<LayoutProps> = props => {
     };
   });
   return (
-    <div className={styles.container}>
+    <div className={darkMode ? styles.container : styles.container_dark_mode}>
       <div
         ref={sidebarRef}
         className={classNames(styles.sidebarContainer, {

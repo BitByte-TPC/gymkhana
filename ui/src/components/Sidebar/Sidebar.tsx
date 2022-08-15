@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {
   logo,
@@ -12,6 +12,7 @@ import {
   signoutIcon,
 } from '../../assets';
 import {useLogout} from '../../hooks/useLogout';
+import {DarkModeContext} from '../Contexts/DarkModeContext';
 import {SidebarRow} from './SidebarRow';
 import styles from './styles.module.scss';
 
@@ -19,8 +20,11 @@ export const Sidebar: React.FC = () => {
   const logout = useLogout();
   const navigate = useNavigate();
 
+  //@ts-ignore
+  const {darkMode} = useContext(DarkModeContext);
+
   return (
-    <div className={styles.container}>
+    <div className={darkMode ? styles.container : styles.container_dark_theme}>
       <div className={styles.menuContainer}>
         <div className={styles.container_row_heading}>
           <div>

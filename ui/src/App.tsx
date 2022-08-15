@@ -1,6 +1,11 @@
 import {Router} from './Routes';
 import 'react-toastify/dist/ReactToastify.css';
+import {DarkModeProvider} from './components/Contexts/DarkModeContext';
 
 export function App() {
-  return <Router />;
+  return (
+    <DarkModeProvider>
+      <Router />
+    </DarkModeProvider>
+  );
 }

@@ -10,14 +10,36 @@
   margin: 0 4vw;
 }
 
+.cardContainer_dark_theme {
+  min-height: 75vh;
+  border-radius: 32px;
+  background-color: var(--secondary-dark-bg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  margin: 0 4vw;
+}
+
 .leftContainer {
   width: 25%;
+  border-radius: 32px;
   display: flex;
   padding-top: 5vh;
   justify-content: center;
   background: var(--off-white);
 }
-.leftContainer img {
+
+.leftContainer_dark_theme {
+  width: 25%;
+  border-radius: 32px;
+  display: flex;
+  padding-top: 5vh;
+  justify-content: center;
+  background: var(--secondary-dark-bg);
+}
+
+.leftContainer img,
+.leftContainer_dark_theme img {
   width: 150px;
   height: 150px;
   border-radius: 50%;

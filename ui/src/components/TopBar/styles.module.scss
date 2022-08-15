@@ -39,6 +39,19 @@
   margin-left: 1vh;
 }
 
+.btn {
+  padding: 1.5vh 3vh;
+  border: none;
+  background-color: var(--secondary-bg);
+  border-radius: 15px;
+  color: var(--primary-bg);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
 @media only screen and (min-width: $sm) {
   .logoContainer {
     display: none;
