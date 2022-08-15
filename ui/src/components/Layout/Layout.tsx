@@ -14,7 +14,6 @@ export const Layout: React.FC<LayoutProps> = props => {
   const sidebarRef = useRef<HTMLDivElement>(null);
   const [isSidebarOpenOnMobile, setIsSidebarOpenOnMobile] = useState(false);
 
-  //@ts-ignore
   const {darkMode} = useContext(DarkModeContext);
 
   useEffect(() => {

@@ -1,6 +1,6 @@
 import styles from './styles.module.scss';
 import {logo} from '../../assets';
-import {useState, useContext} from 'react';
+import {useContext} from 'react';
 import {DarkModeContext} from '../Contexts/DarkModeContext';
 interface TopBarProps {
   setSidebarVisibility: (isSidebarOpenOnMobile: boolean) => void;
@@ -11,7 +11,6 @@ export const TopBar: React.FC<TopBarProps> = ({setSidebarVisibility}) => {
     setSidebarVisibility(true);
   };
 
-  //@ts-ignore
   const {darkMode, toggleDarkMode} = useContext(DarkModeContext);
 
   return (

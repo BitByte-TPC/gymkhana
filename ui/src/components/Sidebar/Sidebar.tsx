@@ -20,7 +20,6 @@ export const Sidebar: React.FC = () => {
   const logout = useLogout();
   const navigate = useNavigate();
 
-  //@ts-ignore
   const {darkMode} = useContext(DarkModeContext);
 
   return (

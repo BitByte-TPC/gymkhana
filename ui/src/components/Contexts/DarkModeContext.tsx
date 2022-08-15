@@ -1,9 +1,17 @@
 import React, {createContext, useState} from 'react';
 
-//@ts-ignore
-const DarkModeContext = createContext();
+const initialState = {
+  darkMode: false,
+  toggleDarkMode: () => {},
+};
 
-function DarkModeProvider(props: any) {
+export interface DarkModeProps {
+  children: React.ReactNode;
+}
+
+const DarkModeContext = createContext(initialState);
+
+function DarkModeProvider(props: DarkModeProps) {
   const [darkMode, setDarkMode] = useState(false);
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);

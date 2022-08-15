@@ -10,7 +10,6 @@ interface Props {
 }
 
 export const SidebarRow: React.FC<Props> = props => {
-  //@ts-ignore
   const {darkMode} = useContext(DarkModeContext);
 
   return (

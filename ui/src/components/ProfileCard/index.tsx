@@ -37,7 +37,6 @@ export const ProfileCard: React.FC = () => {
     console.log(data);
   };
 
-  //@ts-ignore
   const {darkMode} = useContext(DarkModeContext);
 
   return (
