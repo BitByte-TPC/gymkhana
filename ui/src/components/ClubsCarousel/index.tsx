@@ -1,12 +1,13 @@
 import styles from './styles.module.scss';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import {useAuthFetch} from '../../api/useAuthFetch';
+import {PaginatedResponse, useAuthFetch} from '../../api/useAuthFetch';
 import {useEffect, useState} from 'react';
 import {useLogout} from '../../hooks/useLogout';
 import {HeadingDropdown} from '../HeadingDropdown';
 import {RESPONSIVE_BREAKPOINTS_CAROUSEL} from '../../globals/constants';
 import {useNavigate} from 'react-router-dom';
+import {ClubData} from '../../pages/Club';
 
 export const CLUB_OPTIONS = [
   {value: 'all', label: 'Clubs'},
@@ -17,15 +18,9 @@ export const CLUB_OPTIONS = [
 
 Object.freeze(CLUB_OPTIONS);
 
-interface ClubsCarouselData {
-  name: string;
-  logo: string;
-  category: string;
-}
-
 export const ClubsCarousel: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState(CLUB_OPTIONS[0]);
-  const {data, error} = useAuthFetch('/clubs');
+  const {data, error} = useAuthFetch<PaginatedResponse<ClubData>>('/clubs');
   const clubsData = data ? data.results : null;
   const navigate = useNavigate();
   const logout = useLogout();
@@ -48,7 +43,7 @@ export const ClubsCarousel: React.FC = () => {
       >
         {clubsData ? (
           clubsData.map(
-            (club: ClubsCarouselData, index: number) =>
+            (club, index: number) =>
               (selectedOption.value === 'all' ||
                 selectedOption.value === club.category) && (
                 <div

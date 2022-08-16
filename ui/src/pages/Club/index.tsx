@@ -1,25 +1,26 @@
 import {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
-import {useAuthFetch} from '../../api/useAuthFetch';
+import {PaginatedResponse, useAuthFetch} from '../../api/useAuthFetch';
 import ClubEvents from '../../components/ClubEvents';
 import {Layout} from '../../components/Layout/Layout';
 import {useLogout} from '../../hooks/useLogout';
 import styles from './styles.module.scss';
 
-interface IClub {
+export interface ClubData {
   id: number;
   category: string;
   description: string;
   email: string;
   logo: string;
   name: string;
+  slug: string;
 }
 export const Club: React.FC = () => {
   const demoCoverImage =
     'https://images.pexels.com/photos/1181263/pexels-photo-1181263.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
 
-  const {data, error} = useAuthFetch('/clubs');
-  const clubsData: IClub[] = data ? data.results : null;
+  const {data, error} = useAuthFetch<PaginatedResponse<ClubData>>('/clubs');
+  const clubsData = data ? data.results : null;
   const logout = useLogout();
   useEffect(() => {
     if (error) {
