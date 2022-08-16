@@ -1,4 +1,4 @@
-import useSWR from 'swr';
+import useSWR, {SWRResponse} from 'swr';
 import {SERVER_URL} from '../globals/constants';
 
 const fetcher = async (resource: string) => {
@@ -14,6 +14,16 @@ const fetcher = async (resource: string) => {
   return res.json();
 };
 
-export const useAuthFetch = (resourse: string) => {
-  return useSWR(resourse, fetcher, {refreshInterval: 10000});
+export interface PaginatedResponse<T> {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: T[];
+}
+interface DataResponse<T> extends SWRResponse {
+  data?: T;
+}
+
+export const useAuthFetch = <T>(resourse: string): DataResponse<T> => {
+  return useSWR(resourse, fetcher);
 };
