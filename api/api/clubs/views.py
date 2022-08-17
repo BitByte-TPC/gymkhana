@@ -1,8 +1,8 @@
-from rest_framework.generics import ListAPIView, UpdateAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView, UpdateAPIView
 
-from .models import Club
-from .permissions import IsPositionHolderOrAdmin
-from .serializers import ClubSerializer
+from .models import Club, ClubRegistrationRequests
+from .permissions import IsCoreMemberOrAdmin, IsPositionHolderOrAdmin
+from .serializers import ClubRegistrationRequestSerializer, ClubSerializer
 
 
 class ListClubsView(ListAPIView):
@@ -14,3 +14,14 @@ class UpdateClubsView(UpdateAPIView):
     permission_classes = (IsPositionHolderOrAdmin,)
     queryset = Club.objects.all()
     serializer_class = ClubSerializer
+
+
+class CreateClubRegistrationRequestView(CreateAPIView):
+    queryset = ClubRegistrationRequests.objects.all()
+    serializer_class = ClubRegistrationRequestSerializer
+
+
+class UpdateClubRegistrationRequestView(UpdateAPIView):
+    permission_classes = (IsCoreMemberOrAdmin,)
+    queryset = ClubRegistrationRequests.objects.all()
+    serializer_class = ClubRegistrationRequestSerializer

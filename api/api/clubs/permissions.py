@@ -11,3 +11,15 @@ class IsPositionHolderOrAdmin(permissions.BasePermission):
 
         # return true when allowed_roles and users roles have common elements
         return (request.user.is_staff or (allowed_roles & user_roles).exists())
+
+
+class IsCoreMemberOrAdmin(permissions.BasePermission):
+    """Custom permission to allow only position holders of respective club and admins"""
+
+    def has_object_permission(self, request, view, obj):
+        allowed_roles = obj.club.roles.filter(Q(name='Coordinator') | Q(
+            name='Co-Coordinator') | Q(name='Core member'))
+        user_roles = request.user.roles.filter(club__id=obj.club.id)
+
+        # return true when allowed_roles and users roles have common elements
+        return (request.user.is_staff or (allowed_roles & user_roles).exists())
