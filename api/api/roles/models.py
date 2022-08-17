@@ -13,7 +13,7 @@ class Roles(models.Model):
     ROLE_FACULTY_INCHARGE = 'Faculty Incharge'
     ROLE_CONVENER = 'Convener'
     ROLE_CO_CONVENER = 'Co-convener'
-    ROLE_COUNSELLOR = ' Counsellor'
+    ROLE_COUNSELLOR = 'Counsellor'
     ROLE_ASSOCIATE_COUNSELLOR = 'Associate- Counsellor'
     CLUB_ROLE_TYPES = [
         ('Coordinator', ROLE_COORDINATOR),
