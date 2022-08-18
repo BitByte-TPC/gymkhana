@@ -1,6 +1,6 @@
 from rest_framework.generics import CreateAPIView, ListAPIView, UpdateAPIView
 
-from .models import Club, ClubRegistrationRequests
+from .models import Club, ClubRegistrationRequest
 from .permissions import IsCoreMemberOrAdmin, IsPositionHolderOrAdmin
 from .serializers import ClubRegistrationRequestSerializer, ClubSerializer
 
@@ -17,11 +17,11 @@ class UpdateClubsView(UpdateAPIView):
 
 
 class CreateClubRegistrationRequestView(CreateAPIView):
-    queryset = ClubRegistrationRequests.objects.all()
+    queryset = ClubRegistrationRequest.objects.all()
     serializer_class = ClubRegistrationRequestSerializer
 
 
 class UpdateClubRegistrationRequestView(UpdateAPIView):
     permission_classes = (IsCoreMemberOrAdmin,)
-    queryset = ClubRegistrationRequests.objects.all()
+    queryset = ClubRegistrationRequest.objects.all()
     serializer_class = ClubRegistrationRequestSerializer

@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 from rest_framework import status
 from rest_framework.test import APIClient, APITestCase
 
-from api.clubs.models import Club, ClubRegistrationRequests
+from api.clubs.models import Club, ClubRegistrationRequest
 from api.roles.models import Roles
 
 User = get_user_model()
@@ -214,11 +214,11 @@ def test_user(django_user_model):
 @pytest.mark.django_db
 @pytest.fixture(scope='function')
 def test_registration_request(test_user, test_club):
-    return ClubRegistrationRequests.objects.create(user=test_user,
-                                                   club=test_club,
-                                                   fee_submitted=True,
-                                                   status='Pending',
-                                                   remark='Some text')
+    return ClubRegistrationRequest.objects.create(user=test_user,
+                                                  club=test_club,
+                                                  fee_submitted=True,
+                                                  status='Pending',
+                                                  remark='Some text')
 
 
 @pytest.fixture(scope='function')
@@ -302,7 +302,7 @@ def testUpdateClubRegistrationRequest_adminRequest_updatesSuccessful(client, tes
     })
 
     # then
-    updated_registration_request = ClubRegistrationRequests.objects.get(
+    updated_registration_request = ClubRegistrationRequest.objects.get(
         pk=test_registration_request.id)
     assert response.status_code == status.HTTP_200_OK
     assert response.data, {'id': test_registration_request.id,
@@ -364,7 +364,7 @@ def testUpdateClubRegistrationRequest_coreMemberRequest_pass(client, position, t
     })
 
     # then
-    updated_registration_request = ClubRegistrationRequests.objects.get(
+    updated_registration_request = ClubRegistrationRequest.objects.get(
         pk=test_registration_request.id)
     assert response.status_code == status.HTTP_200_OK
     assert response.data, {'id': test_registration_request.id,
