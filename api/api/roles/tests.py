@@ -1,3 +1,4 @@
+from datetime import date
 import pytest
 from rest_framework.test import APIClient
 from rest_framework import status
@@ -30,7 +31,6 @@ def testCreateRole_nonAdminRequest_throwsForbidden():
     response = client.post('/roles/', {'name': 'Coordinator',
                                        'club': test_club.id,
                                        'user': test_user.id,
-                                       'assigned_at': '2022-08-08',
                                        'active': True})
 
     # then
@@ -62,12 +62,12 @@ def testCreateRole_adminRequest_returnSuccesful(role):
                                     slug='tpc')
 
     client.force_authenticate(test_user)
+    today = date.today().strftime("%Y-%m-%d")
 
     # when
     response = client.post('/roles/', {'name': role,
                                        'club': test_club.id,
                                        'user': test_user.id,
-                                       'assigned_at': '2022-08-08',
                                        'active': True})
 
     # then
@@ -76,5 +76,5 @@ def testCreateRole_adminRequest_returnSuccesful(role):
     assert response.data == {'name': role,
                              'club': 1,
                              'user': 1,
-                             'assigned_at': '2022-08-08',
+                             'assigned_at': today,
                              'active': True}

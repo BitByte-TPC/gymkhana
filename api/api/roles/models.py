@@ -29,5 +29,5 @@ class Role(models.Model):
     name = models.CharField(max_length=30, choices=CLUB_ROLE_TYPES)
     club = models.ForeignKey(Club, related_name='roles', on_delete=models.CASCADE)
     user = models.ForeignKey(User, related_name='roles', on_delete=models.CASCADE)
-    assigned_at = models.DateField()
+    assigned_at = models.DateField(auto_now_add=True)
     active = models.BooleanField(default=True)
