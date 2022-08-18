@@ -4,7 +4,7 @@ from rest_framework import status
 from django.contrib.auth import get_user_model
 
 from api.clubs.models import Club
-from api.roles.models import Roles
+from api.roles.models import Role
 
 User = get_user_model()
 
@@ -38,14 +38,14 @@ def testCreateRole_nonAdminRequest_throwsForbidden():
 
 
 @pytest.mark.django_db
-@pytest.mark.parametrize('role', [Roles.ROLE_COORDINATOR,
-                                  Roles.ROLE_CO_COORDINATOR,
-                                  Roles.ROLE_CORE_MEMBER,
-                                  Roles.ROLE_FACULTY_INCHARGE,
-                                  Roles.ROLE_CONVENER,
-                                  Roles.ROLE_CO_CONVENER,
-                                  Roles.ROLE_COUNSELLOR,
-                                  Roles.ROLE_ASSOCIATE_COUNSELLOR])
+@pytest.mark.parametrize('role', [Role.ROLE_COORDINATOR,
+                                  Role.ROLE_CO_COORDINATOR,
+                                  Role.ROLE_CORE_MEMBER,
+                                  Role.ROLE_FACULTY_INCHARGE,
+                                  Role.ROLE_CONVENER,
+                                  Role.ROLE_CO_CONVENER,
+                                  Role.ROLE_COUNSELLOR,
+                                  Role.ROLE_ASSOCIATE_COUNSELLOR])
 def testCreateRole_adminRequest_returnSuccesful(role):
     # given
     client = APIClient()
@@ -72,7 +72,7 @@ def testCreateRole_adminRequest_returnSuccesful(role):
 
     # then
     assert response.status_code == status.HTTP_201_CREATED
-    assert Roles.objects.count() == 1
+    assert Role.objects.count() == 1
     assert response.data == {'name': role,
                              'club': 1,
                              'user': 1,

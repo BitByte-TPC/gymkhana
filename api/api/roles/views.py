@@ -1,12 +1,12 @@
 from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import IsAdminUser
 
-from .models import Roles
-from .serializers import RolesSerializer
+from .models import Role
+from .serializers import RoleSerializer
 
 
-class CreateRolesView(CreateAPIView):
+class CreateRoleView(CreateAPIView):
     """ View to create roles """
     permission_classes = (IsAdminUser,)
-    queryset = Roles.objects.all()
-    serializer_class = RolesSerializer
+    queryset = Role.objects.all()
+    serializer_class = RoleSerializer

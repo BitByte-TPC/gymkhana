@@ -2,7 +2,7 @@ from django.db.models import Q
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 
-from api.roles.models import Roles
+from api.roles.models import Role
 
 from .models import Events
 from .permissions import IsCoreMemberOrAdminElseReadOnly
@@ -24,9 +24,9 @@ class ListCreateEventsView(ListCreateAPIView):
     # and admins to create events
     def _has_create_permission(self, validated_data):
         allowed_roles = validated_data['club'].roles.filter(
-                        Q(name=Roles.ROLE_CORE_MEMBER) |
-                        Q(name=Roles.ROLE_COORDINATOR) |
-                        Q(name=Roles.ROLE_CO_COORDINATOR))
+                        Q(name=Role.ROLE_CORE_MEMBER) |
+                        Q(name=Role.ROLE_COORDINATOR) |
+                        Q(name=Role.ROLE_CO_COORDINATOR))
         user_roles = self.request.user.roles.filter(club__id=validated_data['club'].id)
 
         return (self.request.user.is_staff or (allowed_roles & user_roles).exists())

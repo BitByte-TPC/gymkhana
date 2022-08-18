@@ -1,9 +1,9 @@
 from rest_framework import serializers
 
-from .models import Roles
+from .models import Role
 
 
-class RolesSerializer(serializers.ModelSerializer):
+class RoleSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Roles
+        model = Role
         fields = ['name', 'club', 'user', 'assigned_at', 'active']

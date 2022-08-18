@@ -4,7 +4,7 @@ from rest_framework.test import APIClient
 
 from api.clubs.models import Club
 from api.events.models import Events
-from api.roles.models import Roles
+from api.roles.models import Role
 
 
 @pytest.mark.django_db
@@ -68,17 +68,17 @@ def testRetrieveEvent_nonAdminAndNonCoreMemberRequest_returnSuccessful(
 
 
 @pytest.mark.django_db
-@pytest.mark.parametrize('position', [Roles.ROLE_CORE_MEMBER,
-                                      Roles.ROLE_CO_COORDINATOR,
-                                      Roles.ROLE_COORDINATOR])
+@pytest.mark.parametrize('position', [Role.ROLE_CORE_MEMBER,
+                                      Role.ROLE_CO_COORDINATOR,
+                                      Role.ROLE_COORDINATOR])
 def testRetrieveEvent_CoreMemberRequest_returnSuccesful(
         client, test_user, test_club, test_event, position):
     # given
     client.force_authenticate(test_user)
-    Roles.objects.create(name=position,
-                         club=test_club,
-                         user=test_user,
-                         assigned_at='2022-08-01')
+    Role.objects.create(name=position,
+                        club=test_club,
+                        user=test_user,
+                        assigned_at='2022-08-01')
 
     # when
     response = client.get(f'/events/{test_event.id}/', format='json')
@@ -143,17 +143,17 @@ def testUpdateEvent_nonAdminAndNonCoreMemberRequest_throwsForbidden(
 
 
 @pytest.mark.django_db
-@pytest.mark.parametrize('position', [Roles.ROLE_CORE_MEMBER,
-                                      Roles.ROLE_CO_COORDINATOR,
-                                      Roles.ROLE_COORDINATOR])
+@pytest.mark.parametrize('position', [Role.ROLE_CORE_MEMBER,
+                                      Role.ROLE_CO_COORDINATOR,
+                                      Role.ROLE_COORDINATOR])
 def testUpdateEvent_coreMemberRequest_returnSuccesful(
         client, test_user, test_club, test_event, position):
     # given
     client.force_authenticate(test_user)
-    Roles.objects.create(name=position,
-                         club=test_club,
-                         user=test_user,
-                         assigned_at='2022-08-01')
+    Role.objects.create(name=position,
+                        club=test_club,
+                        user=test_user,
+                        assigned_at='2022-08-01')
 
     # when
     response = client.put(f'/events/{test_event.id}/', {'name': 'Introduction to Git',
@@ -224,17 +224,17 @@ def testDestroyEvent_nonCoreMemberAndNonAdminRequest_throwsForbidden(
 
 
 @pytest.mark.django_db
-@pytest.mark.parametrize('position', [Roles.ROLE_CORE_MEMBER,
-                                      Roles.ROLE_CO_COORDINATOR,
-                                      Roles.ROLE_COORDINATOR])
+@pytest.mark.parametrize('position', [Role.ROLE_CORE_MEMBER,
+                                      Role.ROLE_CO_COORDINATOR,
+                                      Role.ROLE_COORDINATOR])
 def testDestroyEvent_coreMemberRequest_returnSuccessful(
         client, test_user, test_club, test_event, position):
     # given
     client.force_authenticate(test_user)
-    Roles.objects.create(name=position,
-                         club=test_club,
-                         user=test_user,
-                         assigned_at='2022-08-01')
+    Role.objects.create(name=position,
+                        club=test_club,
+                        user=test_user,
+                        assigned_at='2022-08-01')
 
     # when
     response = client.delete(f'/events/{test_event.id}/')

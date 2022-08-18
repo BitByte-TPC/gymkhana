@@ -7,7 +7,7 @@ from rest_framework import status
 from rest_framework.test import APIClient, APITestCase
 
 from api.clubs.models import Club
-from api.roles.models import Roles
+from api.roles.models import Role
 
 User = get_user_model()
 
@@ -133,10 +133,10 @@ class UpdateClubsViewTest(APITestCase):
                                         email="theprogclub@iiitdmj.ac.in",
                                         logo="#")
 
-        Roles.objects.create(name='Coordinator',
-                             club=test_club,
-                             user=user,
-                             assigned_at=date.today())
+        Role.objects.create(name='Coordinator',
+                            club=test_club,
+                            user=user,
+                            assigned_at=date.today())
 
         # when
         # request is missing club email
@@ -165,10 +165,10 @@ def testUpdateClubs_positionHolderRequest_updatesSuccessful(position):
                                     logo="#",
                                     slug='tpc')
 
-    Roles.objects.create(name=position,
-                         club=test_club,
-                         user=user,
-                         assigned_at=date.today())
+    Role.objects.create(name=position,
+                        club=test_club,
+                        user=user,
+                        assigned_at=date.today())
     # when
     response = client.put(f'/clubs/{test_club.id}/', {'name': 'changed_club_name',
                                                       'category': 'Cultural',

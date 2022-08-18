@@ -6,7 +6,7 @@ from api.clubs.models import Club
 User = get_user_model()
 
 
-class Roles(models.Model):
+class Role(models.Model):
     ROLE_COORDINATOR = 'Coordinator'
     ROLE_CO_COORDINATOR = 'Co-Coordinator'
     ROLE_CORE_MEMBER = 'Core member'

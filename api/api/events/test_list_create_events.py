@@ -1,7 +1,7 @@
 import pytest
 from api.clubs.models import Club
 from api.events.models import Events
-from api.roles.models import Roles
+from api.roles.models import Role
 from django.contrib.auth import get_user_model
 from rest_framework import status
 from rest_framework.test import APIClient
@@ -67,16 +67,16 @@ def testListEvent_oneEventInDb_returnsOneEventInResponse(client, test_user, test
 
 
 @pytest.mark.django_db
-@pytest.mark.parametrize('position', [Roles.ROLE_CORE_MEMBER,
-                                      Roles.ROLE_CO_COORDINATOR,
-                                      Roles.ROLE_COORDINATOR])
+@pytest.mark.parametrize('position', [Role.ROLE_CORE_MEMBER,
+                                      Role.ROLE_CO_COORDINATOR,
+                                      Role.ROLE_COORDINATOR])
 def testCreateEvent_coreMemberRequest_creationSuccessful(client, test_user, test_club, position):
     # given
     client.force_authenticate(test_user)
-    Roles.objects.create(name=position,
-                         club=test_club,
-                         user=test_user,
-                         assigned_at='2022-08-01')
+    Role.objects.create(name=position,
+                        club=test_club,
+                        user=test_user,
+                        assigned_at='2022-08-01')
 
     # when
     response = client.post('/events/', {'name': 'Introduction to Git and Github',
