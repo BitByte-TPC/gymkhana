@@ -46,25 +46,22 @@ def testListRoles_userIsNotCoreMember_returnsEmptyList(client, test_user, test_c
     response = client.get(f'/users/{test_user.id}/roles/', format='json')
 
     # then
-    assert response.status_code == status.HTTP_204_NO_CONTENT
-    assert len(response.data) == 0
+    assert response.status_code == status.HTTP_200_OK
+    assert len(response.data['results']) == 0
 
 
 @pytest.mark.django_db
-def testListRoles_userIsCoreMember_returnsRolesList(client, test_user, test_club):
+def testListRoles_userIsCoreMember_returnsFirstFiftyRolesList(client, test_user, test_club):
     # given
     client.force_authenticate(test_user)
 
-    Roles.objects.create(name='Coordinator', user=test_user, club=test_club,
-                         assigned_at=date.today(), active=True)
-    Roles.objects.create(name='Co-Coordinator', user=test_user, club=test_club,
-                         assigned_at=date.today(), active=True)
-    Roles.objects.create(name='Core member', user=test_user, club=test_club,
-                         assigned_at=date.today(), active=True)
+    for i in range(0, 100):
+        Roles.objects.create(name='Coordinator', user=test_user, club=test_club,
+                             assigned_at=date.today(), active=True)
 
     # when
     response = client.get(f'/users/{test_user.id}/roles/', format='json')
 
     # then
     assert response.status_code == status.HTTP_200_OK
-    assert len(response.data) == 3
+    assert len(response.data['results']) == 50
