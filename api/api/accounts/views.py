@@ -26,7 +26,9 @@ class RetrieveUpdateUserView(generics.RetrieveUpdateAPIView):
 
 
 class ListUserRoles(generics.ListAPIView):
+    """ View to retrieve user roles where user is a core member of a club """
     serializer_class = RoleSerializer
+    """User id parameter passed as pk to retrieve user roles """
     lookup_url_kwarg = "pk"
 
     def get_queryset(self):
