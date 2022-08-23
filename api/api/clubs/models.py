@@ -25,7 +25,7 @@ class Club (models.Model):
     registration_deadline = models.DateTimeField(blank=True, null=True)
 
 
-class ClubRegistrationRequests(models.Model):
+class ClubRegistrationRequest(models.Model):
     class RegistrationStatus(models.TextChoices):
         PENDING = 'Pending', _('Pending')
         APPROVED = 'Approved', _('Approved')
