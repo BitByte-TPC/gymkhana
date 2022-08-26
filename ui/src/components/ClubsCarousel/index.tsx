@@ -49,7 +49,7 @@ export const ClubsCarousel: React.FC = () => {
                 <div
                   key={index}
                   className={styles.card}
-                  onClick={() => navigate(`clubs/${club.name}`)} // TODO: change club.name to club.slug
+                  onClick={() => navigate(`clubs/${club.slug}`)}
                 >
                   <img src={club.logo} alt="club" />
                   <div>
