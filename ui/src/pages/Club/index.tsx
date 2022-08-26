@@ -28,7 +28,7 @@ export const Club: React.FC = () => {
     }
   }, [error]);
   const {clubName} = useParams();
-  const club = clubsData?.find(club => club.name === clubName);
+  const club = clubsData?.find(club => club.slug === clubName);
   return (
     <Layout>
       <div className={styles.container}>
