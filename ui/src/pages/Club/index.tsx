@@ -27,8 +27,8 @@ export const Club: React.FC = () => {
       logout();
     }
   }, [error]);
-  const {clubName} = useParams();
-  const club = clubsData?.find(club => club.name === clubName);
+  const {slug} = useParams();
+  const club = clubsData?.find(club => club.slug === slug);
   return (
     <Layout>
       <div className={styles.container}>

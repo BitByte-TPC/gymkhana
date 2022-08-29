@@ -23,7 +23,11 @@ export const Sidebar: React.FC = () => {
     <div className={styles.container}>
       <div className={styles.menuContainer}>
         <div className={styles.container_row_heading}>
-          <div>
+          <div
+            onClick={() => {
+              navigate('/');
+            }}
+          >
             <img className={styles.icon} src={logo} alt="logo" />
           </div>
           <div className={styles.text}>Gymkhana</div>
