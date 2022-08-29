@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
-import {useState, useRef, useEffect, useContext} from 'react';
+import {useState, useRef, useEffect} from 'react';
 import {Sidebar} from '../../components/Sidebar/Sidebar';
 import {TopBar} from '../../components/TopBar';
 import styles from './styles.module.scss';
