@@ -5,6 +5,16 @@
   background-image: url('../../assets/images/background.svg');
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+.themeContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 15px;
+}
+
+.cardContainer {
+  margin-top: 7%;
   display: flex;
   justify-content: center;
   align-items: center;
