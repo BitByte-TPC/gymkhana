@@ -4,34 +4,33 @@ import {useEffect, useState} from 'react';
 interface TopBarProps {
   setSidebarVisibility: (isSidebarOpenOnMobile: boolean) => void;
 }
+const LightModeValue = 'light_mode';
+const DarkModeValue = 'dark_mode';
+const WebsiteTheme = 'website_theme';
 
 export const TopBar: React.FC<TopBarProps> = ({setSidebarVisibility}) => {
   const menuClickHandler = () => {
     setSidebarVisibility(true);
   };
 
-  const lightModeValue = 'light_mode';
-  const DarkModeValue = 'dark_mode';
-  const websiteTheme = 'website_theme';
-
-  const [currentTheme, setCurrentTheme] = useState(lightModeValue);
+  const [currentTheme, setCurrentTheme] = useState(LightModeValue);
 
   const toggleMode = () => {
     const darkTheme = document.body.classList.toggle(DarkModeValue);
     if (darkTheme) {
-      localStorage.setItem(websiteTheme, DarkModeValue);
+      localStorage.setItem(WebsiteTheme, DarkModeValue);
       setCurrentTheme(DarkModeValue);
     } else {
-      localStorage.setItem(websiteTheme, lightModeValue);
-      setCurrentTheme(lightModeValue);
+      localStorage.setItem(WebsiteTheme, LightModeValue);
+      setCurrentTheme(LightModeValue);
     }
   };
 
-  function retrieveTheme() {
-    let theme = localStorage.getItem(websiteTheme) || lightModeValue;
+  const retrieveTheme = () => {
+    const theme = localStorage.getItem(WebsiteTheme) || LightModeValue;
     setCurrentTheme(theme);
     document.body.classList.add(theme);
-  }
+  };
 
   useEffect(() => {
     retrieveTheme();
@@ -40,9 +39,9 @@ export const TopBar: React.FC<TopBarProps> = ({setSidebarVisibility}) => {
   return (
     <div className={styles.container}>
       <img
-        src={currentTheme === lightModeValue ? moonIcon : sunIcon}
+        src={currentTheme === LightModeValue ? moonIcon : sunIcon}
         className={styles.themeIcon}
-        onClick={() => toggleMode()}
+        onClick={toggleMode}
       />
       <div className={styles.logoContainer} onClick={menuClickHandler}>
         <img className={styles.logo} src={logo} alt="logo" />

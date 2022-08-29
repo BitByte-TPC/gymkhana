@@ -1,7 +1,7 @@
 .cardContainer {
   height: 45vh;
   border-radius: 32px;
-  background-color: #e2e2e2;
+  background-color: var(--card-bg);
   background-image: url('../../assets/images/background.svg');
   background-size: cover;
   background-repeat: no-repeat;
@@ -11,9 +11,11 @@
 .leftContainer {
   width: 30%;
   padding: 5vh 2vw;
+  // background-color: var(--toggle-overlay);
 }
 .info {
-  background-color: white;
+  background-color: var(--primary-bg);
+  color: var(--primary-text);
   height: 100%;
   border-radius: 32px;
   padding: 4vh 2vh;
