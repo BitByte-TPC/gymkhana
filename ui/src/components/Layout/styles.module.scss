@@ -3,9 +3,10 @@
 .container {
   height: 100vh;
   width: 100vw;
-  background-color: #f4f5f7;
+  background-color: var(--tertiary-bg);
   display: flex;
 }
+
 .mainContent {
   width: 82%;
   overflow-y: scroll;

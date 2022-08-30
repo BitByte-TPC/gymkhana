@@ -12,11 +12,13 @@
 
 .leftContainer {
   width: 25%;
+  border-radius: 32px;
   display: flex;
   padding-top: 5vh;
   justify-content: center;
   background: var(--off-white);
 }
+
 .leftContainer img {
   width: 150px;
   height: 150px;

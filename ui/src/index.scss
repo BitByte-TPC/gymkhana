@@ -17,16 +17,41 @@ $sm: 700px;
 :root {
   --primary-bg: white;
   --secondary-bg: #829bb0;
+  --tertiary-bg: #f4f5f7;
+  --hover-bg: #ebebeb;
+  --card-bg: #e2e2e2;
 
   --primary-text: #304455;
   --secondary-text: #889fb4;
+  --tertiary-text: #ffffff;
 
   --primary-color: #d81f26;
   --secondary-color: white;
 
   --off-white: #f6f7fe;
   --input-bg: #bcd5eb36;
-  --black-overlay: rgba(0, 0, 0, 0.65);
+  --black-overlay: #000000a6;
+  --toggle-overlay: #ffffff;
+}
+
+.dark_mode {
+  --primary-bg: #0c0c0c;
+  --secondary-bg: #c4c0c0;
+  --tertiary-bg: #080808;
+  --hover-bg: #242323;
+  --card-bg: #141414;
+
+  --primary-text: #a8afb4;
+  --secondary-text: #616a72;
+  --tertiary-text: #ffffff;
+
+  --primary-color: #d81f26;
+  --secondary-color: #202020;
+
+  --off-white: #222222;
+  --input-bg: #0a0a0a36;
+  --black-overlay: #000000a6;
+  --toggle-overlay: #000000a6;
 }
 
 .dropdown__control {

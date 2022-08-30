@@ -34,6 +34,7 @@ export const ProfileCard: React.FC = () => {
     // eslint-disable-next-line no-console
     console.log(data);
   };
+
   return (
     <div className={styles.cardContainer}>
       <div className={styles.leftContainer}>
