@@ -6,7 +6,7 @@ const LIGHT_MODE_VALUE = 'light_mode';
 const DARK_MODE_VALUE = 'dark_mode';
 const WEBSITE_THEME = 'website_theme';
 
-export const Theme: any = () => {
+export const ThemeButton: React.FC = () => {
   const [currentTheme, setCurrentTheme] = useState(LIGHT_MODE_VALUE);
 
   const toggleMode = () => {

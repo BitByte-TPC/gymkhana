@@ -1,6 +1,6 @@
 import styles from './styles.module.scss';
 import {logo} from '../../assets';
-import {Theme} from '../Theme';
+import {ThemeButton} from '../Theme';
 interface TopBarProps {
   setSidebarVisibility: (isSidebarOpenOnMobile: boolean) => void;
 }
@@ -12,7 +12,7 @@ export const TopBar: React.FC<TopBarProps> = ({setSidebarVisibility}) => {
 
   return (
     <div className={styles.container}>
-      <Theme />
+      <ThemeButton />
       <div className={styles.logoContainer} onClick={menuClickHandler}>
         <img className={styles.logo} src={logo} alt="logo" />
       </div>

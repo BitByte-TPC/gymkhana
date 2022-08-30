@@ -5,7 +5,7 @@ import {loginArrow, logo} from '../../assets';
 import {isTokenValid} from '../../utils/token';
 import styles from './styles.module.scss';
 import {useEffect} from 'react';
-import {Theme} from '../../components/Theme';
+import {ThemeButton} from '../../components/Theme';
 
 export const Login: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -23,7 +23,7 @@ export const Login: React.FC = () => {
   return (
     <div className={styles.container}>
       <div className={styles.themeContainer}>
-        <Theme />
+        <ThemeButton />
       </div>
       <div className={styles.cardContainer}>
         <div className={styles.card}>
