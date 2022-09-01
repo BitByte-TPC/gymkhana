@@ -1,34 +1,18 @@
 import styles from './styles.module.scss';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import {dummyNewsImg} from '../../assets';
 import {HeadingDropdown} from '../HeadingDropdown';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {RESPONSIVE_BREAKPOINTS_CAROUSEL} from '../../globals/constants';
+import {PaginatedResponse, useAuthFetch} from '../../api/useAuthFetch';
+import {useLogout} from '../../hooks/useLogout';
 
-const data = [
-  {
-    name: 'Aperta Fons',
-    club: 'TPC',
-    imgUrl: dummyNewsImg,
-    startTime: new Date(2020, 0),
-    endTime: new Date(2020, 0),
-  },
-  {
-    name: 'Aperta Fons',
-    club: 'TPC',
-    imgUrl: dummyNewsImg,
-    startTime: new Date(2020, 0),
-    endTime: new Date(2024, 0),
-  },
-  {
-    name: 'Aperta Fons',
-    club: 'TPC',
-    imgUrl: dummyNewsImg,
-    startTime: new Date(2023, 0),
-    endTime: new Date(2024, 0),
-  },
-];
+export function stringToDate(dateString: string) {
+  const year = +dateString.substring(0, 4);
+  const month = +dateString.substring(5, 7);
+  const day = +dateString.substring(8, 10);
+  return new Date(year, month - 1, day);
+}
 
 const EVENT_OPTIONS: {
   value: 'upcoming' | 'past' | 'ongoing';
@@ -40,30 +24,41 @@ const EVENT_OPTIONS: {
 ];
 Object.freeze(EVENT_OPTIONS);
 
-interface EventsCarouselData {
+interface EventsData {
   name: string;
   club: string;
-  imgUrl: string;
-  startTime: Date;
-  endTime: Date;
+  image_url: string;
+  starts_at: string;
+  ends_at: string;
 }
 
 export const shouldRenderEvent = (
   eventType: 'upcoming' | 'past' | 'ongoing',
-  event: EventsCarouselData
+  event: EventsData
 ) => {
-  const curDate = new Date(Date.now());
+  const curDate = new Date();
+  const start = stringToDate(event.starts_at);
+  const end = stringToDate(event.ends_at);
+
   return (
-    (eventType === 'upcoming' && event.startTime > curDate) ||
-    (eventType === 'past' && event.endTime < curDate) ||
-    (eventType === 'ongoing' &&
-      event.startTime <= curDate &&
-      event.endTime >= curDate)
+    (eventType === 'upcoming' && start > curDate) ||
+    (eventType === 'past' && end < curDate) ||
+    (eventType === 'ongoing' && start <= curDate && end >= curDate)
   );
 };
 
 export const EventsCarousel: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState(EVENT_OPTIONS[0]);
+  const {data, error} = useAuthFetch<PaginatedResponse<EventsData>>('/events');
+  const eventsData = data ? data.results : [];
+  const logout = useLogout();
+
+  useEffect(() => {
+    if (error) {
+      logout();
+    }
+  }, [error]);
+
   return (
     <div className={styles.container}>
       <HeadingDropdown
@@ -77,11 +72,11 @@ export const EventsCarousel: React.FC = () => {
         responsive={RESPONSIVE_BREAKPOINTS_CAROUSEL}
         className={styles.carousel}
       >
-        {data.map(
-          (event, i) =>
+        {eventsData.map(
+          (event, index: number) =>
             shouldRenderEvent(selectedOption.value, event) && (
-              <div key={i} className={styles.card}>
-                <img src={event.imgUrl} alt="event" />
+              <div key={index} className={styles.card}>
+                <img src={event.image_url} alt="event" />
                 <div>
                   <div className={styles.name}>{event.name}</div>
                   <div className={styles.club}>{event.club}</div>

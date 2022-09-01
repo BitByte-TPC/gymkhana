@@ -1,26 +1,26 @@
-import {shouldRenderEvent} from '.';
+import {shouldRenderEvent, stringToDate} from '.';
 
 const data = [
   {
     name: 'Past event',
     club: 'TPC',
-    imgUrl: '',
-    startTime: new Date(2020, 0),
-    endTime: new Date(2020, 0),
+    image_url: '',
+    starts_at: '2020-12-12',
+    ends_at: '2020-12-12',
   },
   {
     name: 'Ongoing event',
     club: 'TPC',
-    imgUrl: '',
-    startTime: new Date(2020, 0),
-    endTime: new Date(2024, 0),
+    image_url: '',
+    starts_at: '2020-12-12',
+    ends_at: '2024-12-12',
   },
   {
     name: 'Upcoming event',
     club: 'TPC',
-    imgUrl: '',
-    startTime: new Date(2023, 0),
-    endTime: new Date(2024, 0),
+    image_url: '',
+    starts_at: '2023-12-12',
+    ends_at: '2024-12-12',
   },
 ];
 
@@ -32,7 +32,7 @@ describe('<EventsCarousel/>', () => {
     const curDate = new Date(Date.now());
     data.forEach(event => {
       const res = shouldRenderEvent('upcoming', event);
-      const expectedRes = event.startTime > curDate;
+      const expectedRes = stringToDate(event.starts_at) > curDate;
       expect(res).toEqual(expectedRes);
     });
   });
@@ -40,7 +40,7 @@ describe('<EventsCarousel/>', () => {
     const curDate = new Date(Date.now());
     data.forEach(event => {
       const res = shouldRenderEvent('past', event);
-      const expectedRes = event.endTime < curDate;
+      const expectedRes = stringToDate(event.ends_at) < curDate;
       expect(res).toEqual(expectedRes);
     });
   });
@@ -49,7 +49,8 @@ describe('<EventsCarousel/>', () => {
     data.forEach(event => {
       const res = shouldRenderEvent('ongoing', event);
       const expectedRes =
-        event.startTime <= curDate && event.endTime >= curDate;
+        stringToDate(event.starts_at) <= curDate &&
+        stringToDate(event.ends_at) >= curDate;
       expect(res).toEqual(expectedRes);
     });
   });
