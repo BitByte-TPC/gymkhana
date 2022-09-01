@@ -7,7 +7,7 @@ import {RESPONSIVE_BREAKPOINTS_CAROUSEL} from '../../globals/constants';
 import {PaginatedResponse, useAuthFetch} from '../../api/useAuthFetch';
 import {useLogout} from '../../hooks/useLogout';
 
-function stringToDate(dateString: string) {
+export function stringToDate(dateString: string) {
   const year = +dateString.substring(0, 4);
   const month = +dateString.substring(5, 7);
   const day = +dateString.substring(8, 10);
