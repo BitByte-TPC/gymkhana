@@ -50,6 +50,7 @@ class TokenViewTest(APITestCase):
             'email': 'test@user.com',
             'first_name': 'Test',
             'last_name': 'User',
+            'picture_url': 'http://picture_url',
             'is_active': True,
         })
         self.assertIsNotNone(created_user)
@@ -66,13 +67,17 @@ class TokenViewTest(APITestCase):
             'email': 'test@user.com',
             'given_name': 'Test',
             'family_name': 'User',
+            'picture': 'http://picture_url',
         }
         mock_fetch_token.return_value = {
             'id_token': 'some-id-token'
         }
 
         user = User.objects.create(
-            email='test@user.com', first_name='Test', last_name='User')
+            email='test@user.com',
+            first_name='Test',
+            last_name='User',
+            picture_url='http://picture_url')
 
         # when
         response = self.client.post(
@@ -89,6 +94,7 @@ class TokenViewTest(APITestCase):
             'email': 'test@user.com',
             'first_name': 'Test',
             'last_name': 'User',
+            'picture_url': 'http://picture_url',
             'is_active': True,
         })
         self.assertEqual(number_of_users_in_db, 1,
@@ -106,13 +112,17 @@ class TokenViewTest(APITestCase):
             'email': 'test@user.com',
             'given_name': 'Test',
             'family_name': 'User',
+            'picture_url': 'http://picture_url',
         }
         mock_fetch_token.return_value = {
             'id_token': 'some-id-token'
         }
 
         existing_user = User.objects.create(
-            email='test@user.com', first_name='Test', last_name='User')
+            email='test@user.com',
+            first_name='Test',
+            last_name='User',
+            picture_url='http://picture_url')
         existing_token = Token.objects.create(token=uuid.uuid4().hex, user=existing_user)
 
         # when
@@ -130,6 +140,7 @@ class TokenViewTest(APITestCase):
             'email': 'test@user.com',
             'first_name': 'Test',
             'last_name': 'User',
+            'picture_url': 'http://picture_url',
             'is_active': True,
         })
 

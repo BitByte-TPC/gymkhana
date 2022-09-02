@@ -66,7 +66,8 @@ class TokenView(APIView):
             user = get_user_model().objects.create(
                 email=user_info.get('email'),
                 first_name=user_info.get('first_name'),
-                last_name=user_info.get('last_name'))
+                last_name=user_info.get('last_name'),
+                picture_url=user_info.get('picture_url'))
         return user
 
 
